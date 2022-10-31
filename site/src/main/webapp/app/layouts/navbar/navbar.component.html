@@ -24,6 +24,8 @@
     <!-- NAVBAR -->
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
       <ul class="navbar-nav ms-auto">
+
+        <!-- INICIO -->
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
             <span>
@@ -32,85 +34,58 @@
             </span>
           </a>
         </li>
-        <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-        <li
-          *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_VOLUNTARIO']"
-          ngbDropdown
-          class="nav-item dropdown pointer"
-          display="dynamic"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
+
+        <!-- VOLUNTARIOS -->
+        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/voluntario" (click)="collapseNavbar()">
             <span>
-              <fa-icon icon="th-list"></fa-icon>
-              <span jhiTranslate="global.menu.entities.main">Entidades</span>
+              <fa-icon icon="user-tie"></fa-icon>
+              <span jhiTranslate="global.menu.entities.voluntario">Voluntarios</span>
             </span>
           </a>
-          <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="voluntario"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.voluntario">Voluntario</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="participante"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.participante">Participante</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="equipo"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.equipo">Equipo</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="punto-control"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.puntoControl">Punto Control</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="dropdown-item"
-                routerLink="paso-control"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="collapseNavbar()"
-              >
-                <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                <span jhiTranslate="global.menu.entities.pasoControl">Paso Control</span>
-              </a>
-            </li>
-            <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-          </ul>
         </li>
+
+        <!-- PARTICIPANTES -->
+        <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_VOLUNTARIO']" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/participante" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="user-ninja"></fa-icon>
+              <span jhiTranslate="global.menu.entities.participante">Participantes</span>
+            </span>
+          </a>
+        </li>
+
+        <!-- EQUIPOS -->
+        <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_VOLUNTARIO']" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/equipo" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="users"></fa-icon>
+              <span jhiTranslate="global.menu.entities.equipo">Equipos</span>
+            </span>
+          </a>
+        </li>
+
+        <!-- PUNTO DE CONTROL -->
+        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/punto-control" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="campground"></fa-icon>
+              <span jhiTranslate="global.menu.entities.puntoControl">Punto de Control</span>
+            </span>
+          </a>
+        </li>
+
+        <!-- CONTROL DE PASO -->
+        <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_VOLUNTARIO']" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/paso-control" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="check-double"></fa-icon>
+              <span jhiTranslate="global.menu.entities.pasoControl">Control de paso</span>
+            </span>
+          </a>
+        </li>
+
+        <!-- ADMINISTRACION -->
         <li
           *jhiHasAnyAuthority="'ROLE_ADMIN'"
           ngbDropdown
@@ -165,6 +140,8 @@
             <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
           </ul>
         </li>
+
+        <!-- IDIOMA -->
         <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" *ngIf="languages && languages.length > 1">
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown">
             <span>
@@ -184,6 +161,8 @@
             </li>
           </ul>
         </li>
+
+        <!-- CUENTA -->
         <li
           ngbDropdown
           class="nav-item dropdown pointer"
