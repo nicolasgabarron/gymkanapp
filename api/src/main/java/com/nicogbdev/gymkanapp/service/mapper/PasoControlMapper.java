@@ -13,7 +13,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link PasoControl} and its DTO {@link PasoControlDTO}.
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PasoControlMapper extends EntityMapper<PasoControlDTO, PasoControl> {
     @Mapping(target = "equipo", source = "equipo", qualifiedByName = "equipoId")
     @Mapping(target = "puntoControl", source = "puntoControl", qualifiedByName = "puntoControlId")
