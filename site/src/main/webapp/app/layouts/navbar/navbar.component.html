@@ -36,7 +36,7 @@
         </li>
 
         <!-- VOLUNTARIOS -->
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/voluntario" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="user-tie"></fa-icon>
@@ -46,7 +46,7 @@
         </li>
 
         <!-- PARTICIPANTES -->
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_VOLUNTARIO']" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/participante" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="user-ninja"></fa-icon>
@@ -56,7 +56,7 @@
         </li>
 
         <!-- EQUIPOS -->
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_VOLUNTARIO']" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/equipo" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="users"></fa-icon>
@@ -66,7 +66,7 @@
         </li>
 
         <!-- PUNTO DE CONTROL -->
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/punto-control" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="campground"></fa-icon>
@@ -76,7 +76,7 @@
         </li>
 
         <!-- CONTROL DE PASO -->
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_VOLUNTARIO']" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/paso-control" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="check-double"></fa-icon>
