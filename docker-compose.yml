@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+  db-postgres-gymkanapp:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: soycomotu
+      POSTGRES_DB: gymkanapp
+      POSTGRES_PASSWORD: SoyComoTu020201
+    ports:
+      - 5432:5432
+    networks:
+      - network-gymkanapp
+    volumes:
+      - volume-gymkanapp:/var/lib/postgresql/data
+  
+  adminer-gymkanapp:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - 9090:8080
+    networks:
+      - network-gymkanapp
+
+networks:
+  network-gymkanapp:
+
+volumes:
+  volume-gymkanapp:
