@@ -9,7 +9,7 @@
         "main": "Entities",
         "voluntario": "Voluntarios",
         "participante": "Participantes",
-        "equipo": "Equipo",
+        "equipo": "Equipos",
         "puntoControl": "Punto Control",
         "pasoControl": "Paso Control",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
