@@ -1,0 +1,28 @@
+{
+  "gymkanappApp": {
+    "puntoControl": {
+      "home": {
+        "title": "Punto Controls",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Punto Control",
+        "createOrEditLabel": "Create or edit a Punto Control",
+        "notFound": "No Punto Controls found"
+      },
+      "created": "A new Punto Control is created with identifier {{ param }}",
+      "updated": "A Punto Control is updated with identifier {{ param }}",
+      "deleted": "A Punto Control is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Punto Control {{ id }}?"
+      },
+      "detail": {
+        "title": "Punto Control"
+      },
+      "id": "ID",
+      "identificador": "Identificador",
+      "orden": "Orden",
+      "nombre": "Nombre",
+      "direccion": "Direccion",
+      "voluntarios": "Voluntarios"
+    }
+  }
+}

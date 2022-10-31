@@ -1,0 +1,39 @@
+{
+  "applications": "*",
+  "changelogDate": "20221031084325",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "punto_control",
+  "fields": [
+    {
+      "fieldName": "identificador",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orden",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "nombre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "direccion",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "PuntoControl",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "voluntario",
+      "otherEntityRelationshipName": "puntoControl",
+      "relationshipName": "voluntarios",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

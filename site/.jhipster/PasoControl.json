@@ -1,0 +1,36 @@
+{
+  "applications": "*",
+  "changelogDate": "20221031084351",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "paso_control",
+  "fields": [
+    {
+      "fieldName": "fechaHora",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "PasoControl",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "equipo",
+      "relationshipName": "equipo",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "puntoControl",
+      "relationshipName": "puntoControl",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "voluntario",
+      "relationshipName": "validadoPor",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

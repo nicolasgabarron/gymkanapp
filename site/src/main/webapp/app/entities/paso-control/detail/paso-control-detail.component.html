@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="pasoControl">
+      <h2 data-cy="pasoControlDetailsHeading"><span jhiTranslate="gymkanappApp.pasoControl.detail.title">Paso Control</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ pasoControl.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gymkanappApp.pasoControl.fechaHora">Fecha Hora</span></dt>
+        <dd>
+          <span>{{ pasoControl.fechaHora | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="gymkanappApp.pasoControl.equipo">Equipo</span></dt>
+        <dd>
+          <div *ngIf="pasoControl.equipo">
+            <a [routerLink]="['/equipo', pasoControl.equipo.id, 'view']">{{ pasoControl.equipo.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gymkanappApp.pasoControl.puntoControl">Punto Control</span></dt>
+        <dd>
+          <div *ngIf="pasoControl.puntoControl">
+            <a [routerLink]="['/punto-control', pasoControl.puntoControl.id, 'view']">{{ pasoControl.puntoControl.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gymkanappApp.pasoControl.validadoPor">Validado Por</span></dt>
+        <dd>
+          <div *ngIf="pasoControl.validadoPor">
+            <a [routerLink]="['/voluntario', pasoControl.validadoPor.id, 'view']">{{ pasoControl.validadoPor.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/paso-control', pasoControl.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

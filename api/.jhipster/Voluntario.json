@@ -1,0 +1,45 @@
+{
+  "applications": "*",
+  "changelogDate": "20221031084322",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "voluntario",
+  "fields": [
+    {
+      "fieldName": "dni",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nombre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "apellidos",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaNacimiento",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Voluntario",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "ownerSide": true,
+      "relationshipName": "usuarioApp",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "puntoControl",
+      "otherEntityRelationshipName": "voluntarios",
+      "relationshipName": "puntoControl",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}
