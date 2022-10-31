@@ -31,8 +31,7 @@ entity PuntoControl {
 
 // Relacionar con Equipo y Participante
 entity PasoControl {
-	fechaHora Instant,
-    validadoPor Voluntario
+	fechaHora Instant
 }
 
 
@@ -45,6 +44,7 @@ relationship OneToMany {
 relationship ManyToOne{
 	PasoControl{equipo} to Equipo,
     PasoControl{puntoControl} to PuntoControl
+    PasoControl{validadoPor} to Voluntario
 }
 
 relationship OneToOne {
