@@ -7,5 +7,5 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link PuntoControl} and its DTO {@link PuntoControlDTO}.
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PuntoControlMapper extends EntityMapper<PuntoControlDTO, PuntoControl> {}
