@@ -60,6 +60,15 @@
           </a>
         </li>
 
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/punto-control" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="campground"></fa-icon>
+              <span jhiTranslate="global.menu.entities.puntoControl">Punto de Control</span>
+            </span>
+          </a>
+        </li>
+
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
         <li
           *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_VOLUNTARIO']"
