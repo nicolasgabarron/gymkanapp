@@ -40,6 +40,7 @@ import {
   faUserTie,
   faUserNinja,
   faCampground,
+  faCheckDouble,
   // jhipster-needle-add-icon-import
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -85,6 +86,7 @@ export const fontAwesomeIcons = [
   faUserTie,
   faUserNinja,
   faUsers,
-  faCampground
+  faCampground,
+  faCheckDouble
   // jhipster-needle-add-icon-import
 ];

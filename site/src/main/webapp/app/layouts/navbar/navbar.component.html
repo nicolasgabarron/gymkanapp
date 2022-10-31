@@ -69,6 +69,15 @@
           </a>
         </li>
 
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="/paso-control" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="check-double"></fa-icon>
+              <span jhiTranslate="global.menu.entities.pasoControl">Control de paso</span>
+            </span>
+          </a>
+        </li>
+
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
         <li
           *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_VOLUNTARIO']"
