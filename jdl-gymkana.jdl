@@ -1,0 +1,61 @@
+// ENTIDADES
+// Crear relacioon con User
+entity Voluntario {
+	dni String,
+    nombre String,
+    apellidos String,
+    fechaNacimiento LocalDate
+}
+
+// Crear relación con User
+entity Participante {
+	dni String,
+    nombre String,
+    apellidos String,
+    fechaNacimiento LocalDate
+}
+
+// Crear relación con Participante
+entity Equipo {
+	identificador String,
+    nombre String
+}
+
+// Crear relación con voluntario.
+entity PuntoControl {
+	identificador String,
+    orden Integer,
+    nombre String,
+    direccion String
+}
+
+// Relacionar con Equipo y Participante
+entity PasoControl {
+	fechaHora Instant,
+    validadoPor Voluntario
+}
+
+
+// RELACIONES
+relationship OneToMany {
+	Equipo{participantes} to Participante, // Formado por
+    PuntoControl {voluntarios} to Voluntario, // Manejado por
+}
+
+relationship ManyToOne{
+	PasoControl{equipo} to Equipo,
+    PasoControl{puntoControl} to PuntoControl
+}
+
+relationship OneToOne {
+	Participante{usuarioApp} to User,
+    Voluntario{usuarioApp} to User
+}
+
+
+// OPCIONES DE GENERACIÓN
+dto all with mapstruct
+paginate all with pagination
+service all with serviceImpl
+filter all 
+
