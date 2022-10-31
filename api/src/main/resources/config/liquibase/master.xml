@@ -22,4 +22,5 @@
     <include file="config/liquibase/changelog/20221031084326_added_entity_constraints_PasoControl.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20221031103500_insert_role_voluntario.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
