@@ -1,10 +1,13 @@
 <nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-dark">
   <div class="container-fluid">
+    <!-- LOGO -->
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
       <span class="logo-img"></span>
       <span jhiTranslate="global.title" class="navbar-title">Gymkanapp</span>
       <span class="navbar-version">{{ version }}</span>
     </a>
+
+    <!-- Botón NAVBAR cuando la pantalla es pequeña -->
     <a
       class="navbar-toggler d-lg-none"
       href="javascript:void(0);"
@@ -17,6 +20,8 @@
     >
       <fa-icon icon="bars"></fa-icon>
     </a>
+
+    <!-- NAVBAR -->
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
@@ -29,7 +34,7 @@
         </li>
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
         <li
-          *ngSwitchCase="true"
+          *jhiHasAnyAuthority="['ROLE_ADMIN','ROLE_VOLUNTARIO']"
           ngbDropdown
           class="nav-item dropdown pointer"
           display="dynamic"
