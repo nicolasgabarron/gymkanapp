@@ -8,6 +8,14 @@ import javax.persistence.*;
 /**
  * A PasoControl.
  */
+@NamedEntityGraph(
+    name = "paso-control-entity-graph",
+    attributeNodes = {
+        @NamedAttributeNode("equipo"),
+        @NamedAttributeNode("puntoControl"),
+        @NamedAttributeNode("validadoPor"),
+    }
+)
 @Entity
 @Table(name = "paso_control")
 @SuppressWarnings("common-java:DuplicatedBlocks")

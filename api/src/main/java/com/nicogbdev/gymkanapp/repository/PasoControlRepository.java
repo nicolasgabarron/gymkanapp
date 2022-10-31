@@ -1,6 +1,9 @@
 package com.nicogbdev.gymkanapp.repository;
 
 import com.nicogbdev.gymkanapp.domain.PasoControl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +12,9 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface PasoControlRepository extends JpaRepository<PasoControl, Long>, JpaSpecificationExecutor<PasoControl> {}
+public interface PasoControlRepository extends JpaRepository<PasoControl, Long>, JpaSpecificationExecutor<PasoControl> {
+
+    @Override
+    @EntityGraph("paso-control-entity-graph")
+    Page<PasoControl> findAll(Specification<PasoControl> spec, Pageable pageable);
+}

@@ -9,6 +9,12 @@ import javax.persistence.*;
 /**
  * A PuntoControl.
  */
+@NamedEntityGraph(
+    name = "punto-control-entity-graph",
+    attributeNodes = {
+        @NamedAttributeNode("voluntarios")
+    }
+)
 @Entity
 @Table(name = "punto_control")
 @SuppressWarnings("common-java:DuplicatedBlocks")

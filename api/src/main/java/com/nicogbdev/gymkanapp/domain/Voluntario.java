@@ -8,6 +8,13 @@ import javax.persistence.*;
 /**
  * A Voluntario.
  */
+@NamedEntityGraph(
+    name = "voluntario-entity-graph",
+    attributeNodes = {
+        @NamedAttributeNode("usuarioApp"),
+        @NamedAttributeNode("puntoControl"),
+    }
+)
 @Entity
 @Table(name = "voluntario")
 @SuppressWarnings("common-java:DuplicatedBlocks")

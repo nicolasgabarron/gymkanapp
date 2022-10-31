@@ -9,6 +9,12 @@ import javax.persistence.*;
 /**
  * A Equipo.
  */
+@NamedEntityGraph(
+    name = "equipo-entity-graph",
+    attributeNodes = {
+        @NamedAttributeNode("participantes")
+    }
+)
 @Entity
 @Table(name = "equipo")
 @SuppressWarnings("common-java:DuplicatedBlocks")
