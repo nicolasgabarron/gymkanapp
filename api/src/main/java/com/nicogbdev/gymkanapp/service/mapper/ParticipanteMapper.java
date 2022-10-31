@@ -11,7 +11,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Participante} and its DTO {@link ParticipanteDTO}.
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ParticipanteMapper extends EntityMapper<ParticipanteDTO, Participante> {
     @Mapping(target = "usuarioApp", source = "usuarioApp", qualifiedByName = "userId")
     @Mapping(target = "equipo", source = "equipo", qualifiedByName = "equipoId")
