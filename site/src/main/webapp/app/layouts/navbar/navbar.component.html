@@ -24,6 +24,8 @@
     <!-- NAVBAR -->
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
       <ul class="navbar-nav ms-auto">
+
+        <!-- INICIO -->
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
             <span>
@@ -33,6 +35,7 @@
           </a>
         </li>
 
+        <!-- VOLUNTARIOS -->
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/voluntario" (click)="collapseNavbar()">
             <span>
@@ -42,6 +45,7 @@
           </a>
         </li>
 
+        <!-- PARTICIPANTES -->
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/participante" (click)="collapseNavbar()">
             <span>
@@ -51,6 +55,7 @@
           </a>
         </li>
 
+        <!-- EQUIPOS -->
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/equipo" (click)="collapseNavbar()">
             <span>
@@ -60,6 +65,7 @@
           </a>
         </li>
 
+        <!-- PUNTO DE CONTROL -->
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/punto-control" (click)="collapseNavbar()">
             <span>
@@ -69,6 +75,7 @@
           </a>
         </li>
 
+        <!-- CONTROL DE PASO -->
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a class="nav-link" routerLink="/paso-control" (click)="collapseNavbar()">
             <span>
@@ -77,6 +84,8 @@
             </span>
           </a>
         </li>
+
+        <!-- ADMINISTRACION -->
         <li
           *jhiHasAnyAuthority="'ROLE_ADMIN'"
           ngbDropdown
@@ -131,6 +140,8 @@
             <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
           </ul>
         </li>
+
+        <!-- IDIOMA -->
         <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" *ngIf="languages && languages.length > 1">
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown">
             <span>
@@ -150,6 +161,8 @@
             </li>
           </ul>
         </li>
+
+        <!-- CUENTA -->
         <li
           ngbDropdown
           class="nav-item dropdown pointer"
