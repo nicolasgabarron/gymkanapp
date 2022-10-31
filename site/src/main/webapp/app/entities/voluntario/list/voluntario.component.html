@@ -1,0 +1,149 @@
+<div>
+  <h2 id="page-heading" data-cy="VoluntarioHeading">
+    <span jhiTranslate="gymkanappApp.voluntario.home.title">Voluntarios</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gymkanappApp.voluntario.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-voluntario"
+        [routerLink]="['/voluntario/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gymkanappApp.voluntario.home.createLabel"> Crear nuevo Voluntario </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <jhi-filter [filters]="filters"></jhi-filter>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="voluntarios?.length === 0">
+    <span jhiTranslate="gymkanappApp.voluntario.home.notFound">Ningún Voluntarios encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="voluntarios && voluntarios.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="dni">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.voluntario.dni">Dni</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="nombre">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.voluntario.nombre">Nombre</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="apellidos">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.voluntario.apellidos">Apellidos</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="fechaNacimiento">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.voluntario.fechaNacimiento">Fecha Nacimiento</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="usuarioApp.id">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.voluntario.usuarioApp">Usuario App</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="puntoControl.id">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.voluntario.puntoControl">Punto Control</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let voluntario of voluntarios; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/voluntario', voluntario.id, 'view']">{{ voluntario.id }}</a>
+          </td>
+          <td>{{ voluntario.dni }}</td>
+          <td>{{ voluntario.nombre }}</td>
+          <td>{{ voluntario.apellidos }}</td>
+          <td>{{ voluntario.fechaNacimiento | formatMediumDate }}</td>
+          <td>
+            {{ voluntario.usuarioApp?.id }}
+          </td>
+          <td>
+            <div *ngIf="voluntario.puntoControl">
+              <a [routerLink]="['/punto-control', voluntario.puntoControl.id, 'view']">{{ voluntario.puntoControl.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/voluntario', voluntario.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/voluntario', voluntario.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(voluntario)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="voluntarios && voluntarios.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

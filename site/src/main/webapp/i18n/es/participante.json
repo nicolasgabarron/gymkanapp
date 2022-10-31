@@ -1,0 +1,29 @@
+{
+  "gymkanappApp": {
+    "participante": {
+      "home": {
+        "title": "Participantes",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Participante",
+        "createOrEditLabel": "Crear o editar Participante",
+        "notFound": "Ningún Participantes encontrado"
+      },
+      "created": "Un nuevo Participante ha sido creado con el identificador {{ param }}",
+      "updated": "Un Participante ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Participante ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Participante {{ id }}?"
+      },
+      "detail": {
+        "title": "Participante"
+      },
+      "id": "ID",
+      "dni": "Dni",
+      "nombre": "Nombre",
+      "apellidos": "Apellidos",
+      "fechaNacimiento": "Fecha Nacimiento",
+      "usuarioApp": "Usuario App",
+      "equipo": "Equipo"
+    }
+  }
+}

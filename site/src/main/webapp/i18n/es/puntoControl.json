@@ -1,0 +1,28 @@
+{
+  "gymkanappApp": {
+    "puntoControl": {
+      "home": {
+        "title": "Punto Controls",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Punto Control",
+        "createOrEditLabel": "Crear o editar Punto Control",
+        "notFound": "Ningún Punto Controls encontrado"
+      },
+      "created": "Un nuevo Punto Control ha sido creado con el identificador {{ param }}",
+      "updated": "Un Punto Control ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Punto Control ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Punto Control {{ id }}?"
+      },
+      "detail": {
+        "title": "Punto Control"
+      },
+      "id": "ID",
+      "identificador": "Identificador",
+      "orden": "Orden",
+      "nombre": "Nombre",
+      "direccion": "Direccion",
+      "voluntarios": "Voluntarios"
+    }
+  }
+}
