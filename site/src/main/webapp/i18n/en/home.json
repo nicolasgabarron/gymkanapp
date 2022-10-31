@@ -1,19 +1,19 @@
 {
   "home": {
-    "title": "Welcome, Java Hipster!",
-    "subtitle": "This is your homepage",
+    "title": "III Gymkana Fotográfica Solidaria Ciudad De Murcia 2022",
+    "subtitle": "¡Bienvenido a la aplicación de gestión de la Gymkana Fotográfica - Fundación SoyComoTu!",
     "logged": {
       "message": "You are logged in as user \"{{username}}\"."
     },
-    "question": "If you have any question on JHipster:",
+    "linkTitle": "Enlaces de interés:",
     "link": {
-      "homepage": "JHipster homepage",
-      "stackoverflow": "JHipster on Stack Overflow",
-      "bugtracker": "JHipster bug tracker",
-      "chat": "JHipster public chat room",
-      "follow": "follow @jhipster on Twitter"
+      "fundacion": "Página de la Fundación SoyComoTu",
+      "evento": "Página principal del evento",
+      "nieves": "Página de la Dra. Nieves Martínez-Hidalgo",
+      "nicogbdev": "Página de Nicolás Gabarrón Blaya - Desarrollador",
+      "nicogbdevig": "Instagram de Nicolás Gabarrón Blaya - Desarrollador"
     },
-    "like": "If you like JHipster, don't forget to give us a star on",
+    "like": "Si te gusta este proyecto, puedes apoyar otros tantos que tengo en",
     "github": "GitHub"
   }
 }
