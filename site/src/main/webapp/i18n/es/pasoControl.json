@@ -6,16 +6,16 @@
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Nueva entrada",
         "createOrEditLabel": "Crear o editar Paso Control",
-        "notFound": "Ningún Paso Controls encontrado"
+        "notFound": "No se ha encontrado ningún paso de equipo."
       },
       "created": "Un nuevo Paso Control ha sido creado con el identificador {{ param }}",
       "updated": "Un Paso Control ha sido actualizado con el identificador {{ param }}",
       "deleted": "Un Paso Control ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Paso Control {{ id }}?"
+        "question": "¿Seguro que quiere eliminar el control de paso con ID {{ id }}?"
       },
       "detail": {
-        "title": "Paso Control"
+        "title": "Detalle del paso"
       },
       "id": "ID",
       "fechaHora": "Fecha y hora",
