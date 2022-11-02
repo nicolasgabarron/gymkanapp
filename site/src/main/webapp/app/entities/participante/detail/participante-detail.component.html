@@ -30,14 +30,10 @@
         <dd>
           <span>{{ participante.fechaNacimiento | formatMediumDate }}</span>
         </dd>
-        <dt><span jhiTranslate="gymkanappApp.participante.usuarioApp">Usuario App</span></dt>
-        <dd>
-          <span>{{ participante.usuarioApp?.id }}</span>
-        </dd>
         <dt><span jhiTranslate="gymkanappApp.participante.equipo">Equipo</span></dt>
         <dd>
           <div *ngIf="participante.equipo">
-            <a [routerLink]="['/equipo', participante.equipo.id, 'view']">{{ participante.equipo.id }}</a>
+            <a [routerLink]="['/equipo', participante.equipo.id, 'view']">{{ participante.equipo.identificador }}</a>
           </div>
         </dd>
       </dl>
