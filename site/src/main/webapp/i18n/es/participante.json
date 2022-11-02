@@ -4,7 +4,7 @@
       "home": {
         "title": "Participantes",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Participante",
+        "createLabel": "Dar de alta un participante",
         "createOrEditLabel": "Crear o editar Participante",
         "notFound": "Ningún Participantes encontrado"
       },
