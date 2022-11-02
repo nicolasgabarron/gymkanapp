@@ -4,7 +4,7 @@
       "home": {
         "title": "Equipos",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Equipo",
+        "createLabel": "Crear un nuevo equipo",
         "createOrEditLabel": "Crear o editar Equipo",
         "notFound": "Ningún Equipos encontrado"
       },
