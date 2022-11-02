@@ -75,7 +75,7 @@
           <td>{{ participante.fechaNacimiento | formatMediumDate }}</td>
           <td>
             <div *ngIf="participante.equipo">
-              <a [routerLink]="['/equipo', participante.equipo.id, 'view']">{{ participante.equipo.id }}</a>
+              <a [routerLink]="['/equipo', participante.equipo.id, 'view']">{{ participante.equipo.identificador }}</a>
             </div>
           </td>
           <td class="text-end">

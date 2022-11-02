@@ -9,7 +9,7 @@ export interface IParticipante {
   apellidos?: string | null;
   fechaNacimiento?: dayjs.Dayjs | null;
   usuarioApp?: Pick<IUser, 'id'> | null;
-  equipo?: Pick<IEquipo, 'id'> | null;
+  equipo?: Pick<IEquipo, 'id' | 'identificador'> | null;
 }
 
 export type NewParticipante = Omit<IParticipante, 'id'> & { id: null };
