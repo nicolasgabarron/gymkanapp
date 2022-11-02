@@ -18,10 +18,10 @@
         "title": "Paso Control"
       },
       "id": "ID",
-      "fechaHora": "Fecha Hora",
+      "fechaHora": "Fecha y hora",
       "equipo": "Equipo",
-      "puntoControl": "Punto Control",
-      "validadoPor": "Validado Por"
+      "puntoControl": "Punto de control",
+      "validadoPor": "Validado por"
     }
   }
 }
