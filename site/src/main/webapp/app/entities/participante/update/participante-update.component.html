@@ -54,21 +54,6 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gymkanappApp.participante.usuarioApp" for="field_usuarioApp">Usuario App</label>
-          <select
-            class="form-control"
-            id="field_usuarioApp"
-            data-cy="usuarioApp"
-            name="usuarioApp"
-            formControlName="usuarioApp"
-            [compareWith]="compareUser"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.id }}</option>
-          </select>
-        </div>
-
-        <div class="row mb-3">
           <label class="form-label" jhiTranslate="gymkanappApp.participante.equipo" for="field_equipo">Equipo</label>
           <select
             class="form-control"
@@ -79,7 +64,7 @@
             [compareWith]="compareEquipo"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="equipoOption" *ngFor="let equipoOption of equiposSharedCollection">{{ equipoOption.id }}</option>
+            <option [ngValue]="equipoOption" *ngFor="let equipoOption of equiposSharedCollection">{{ equipoOption.identificador }}</option>
           </select>
         </div>
       </div>
