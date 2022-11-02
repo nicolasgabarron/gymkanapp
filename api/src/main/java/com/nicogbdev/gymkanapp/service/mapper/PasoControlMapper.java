@@ -23,15 +23,18 @@ public interface PasoControlMapper extends EntityMapper<PasoControlDTO, PasoCont
     @Named("equipoId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "identificador", source = "identificador")
     EquipoDTO toDtoEquipoId(Equipo equipo);
 
     @Named("puntoControlId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "nombre", source = "nombre")
     PuntoControlDTO toDtoPuntoControlId(PuntoControl puntoControl);
 
     @Named("voluntarioId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "dni", source = "dni")
     VoluntarioDTO toDtoVoluntarioId(Voluntario voluntario);
 }

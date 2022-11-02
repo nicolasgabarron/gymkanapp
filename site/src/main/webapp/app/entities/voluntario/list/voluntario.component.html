@@ -34,12 +34,6 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span jhiTranslate="global.field.id">ID</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="dni">
             <div class="d-flex">
               <span jhiTranslate="gymkanappApp.voluntario.dni">Dni</span>
@@ -58,18 +52,6 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="fechaNacimiento">
-            <div class="d-flex">
-              <span jhiTranslate="gymkanappApp.voluntario.fechaNacimiento">Fecha Nacimiento</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="usuarioApp.id">
-            <div class="d-flex">
-              <span jhiTranslate="gymkanappApp.voluntario.usuarioApp">Usuario App</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="puntoControl.id">
             <div class="d-flex">
               <span jhiTranslate="gymkanappApp.voluntario.puntoControl">Punto Control</span>
@@ -81,19 +63,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let voluntario of voluntarios; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/voluntario', voluntario.id, 'view']">{{ voluntario.id }}</a>
-          </td>
           <td>{{ voluntario.dni }}</td>
           <td>{{ voluntario.nombre }}</td>
           <td>{{ voluntario.apellidos }}</td>
-          <td>{{ voluntario.fechaNacimiento | formatMediumDate }}</td>
-          <td>
-            {{ voluntario.usuarioApp?.id }}
-          </td>
           <td>
             <div *ngIf="voluntario.puntoControl">
-              <a [routerLink]="['/punto-control', voluntario.puntoControl.id, 'view']">{{ voluntario.puntoControl.id }}</a>
+              <a [routerLink]="['/punto-control', voluntario.puntoControl.id, 'view']">{{ voluntario.puntoControl.nombre }}</a>
             </div>
           </td>
           <td class="text-end">

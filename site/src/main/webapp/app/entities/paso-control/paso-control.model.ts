@@ -6,9 +6,9 @@ import { IVoluntario } from 'app/entities/voluntario/voluntario.model';
 export interface IPasoControl {
   id: number;
   fechaHora?: dayjs.Dayjs | null;
-  equipo?: Pick<IEquipo, 'id'> | null;
-  puntoControl?: Pick<IPuntoControl, 'id'> | null;
-  validadoPor?: Pick<IVoluntario, 'id'> | null;
+  equipo?: Pick<IEquipo, 'id' | 'identificador'> | null;
+  puntoControl?: Pick<IPuntoControl, 'id' | 'nombre'> | null;
+  validadoPor?: Pick<IVoluntario, 'id' | 'dni'> | null;
 }
 
 export type NewPasoControl = Omit<IPasoControl, 'id'> & { id: null };

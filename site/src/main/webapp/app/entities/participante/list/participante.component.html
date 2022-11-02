@@ -34,12 +34,6 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span jhiTranslate="global.field.id">ID</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="dni">
             <div class="d-flex">
               <span jhiTranslate="gymkanappApp.participante.dni">Dni</span>
@@ -64,12 +58,6 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="usuarioApp.id">
-            <div class="d-flex">
-              <span jhiTranslate="gymkanappApp.participante.usuarioApp">Usuario App</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="equipo.id">
             <div class="d-flex">
               <span jhiTranslate="gymkanappApp.participante.equipo">Equipo</span>
@@ -81,19 +69,13 @@
       </thead>
       <tbody>
         <tr *ngFor="let participante of participantes; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/participante', participante.id, 'view']">{{ participante.id }}</a>
-          </td>
           <td>{{ participante.dni }}</td>
           <td>{{ participante.nombre }}</td>
           <td>{{ participante.apellidos }}</td>
           <td>{{ participante.fechaNacimiento | formatMediumDate }}</td>
           <td>
-            {{ participante.usuarioApp?.id }}
-          </td>
-          <td>
             <div *ngIf="participante.equipo">
-              <a [routerLink]="['/equipo', participante.equipo.id, 'view']">{{ participante.equipo.id }}</a>
+              <a [routerLink]="['/equipo', participante.equipo.id, 'view']">{{ participante.equipo.identificador }}</a>
             </div>
           </td>
           <td class="text-end">

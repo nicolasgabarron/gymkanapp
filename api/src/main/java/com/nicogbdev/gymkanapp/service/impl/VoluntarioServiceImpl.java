@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import com.nicogbdev.gymkanapp.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -75,8 +76,15 @@ public class VoluntarioServiceImpl implements VoluntarioService {
 
         voluntarioUser = userRepository.save(voluntarioUser);
 
-        // Asigno el ID del usuario creado al Voluntario
-        voluntarioDTO.setUsuarioApp(userMapper.userToUserDTO(voluntarioUser));
+        if (voluntarioUser.getId() != null){
+            // Asigno el ID del usuario creado al Voluntario
+            voluntarioDTO.setUsuarioApp(userMapper.userToUserDTO(voluntarioUser));
+        } else {
+            return null;
+        }
+
+
+
 
         Voluntario voluntario = voluntarioMapper.toEntity(voluntarioDTO);
         voluntario = voluntarioRepository.save(voluntario);

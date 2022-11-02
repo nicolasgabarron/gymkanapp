@@ -25,5 +25,6 @@ public interface ParticipanteMapper extends EntityMapper<ParticipanteDTO, Partic
     @Named("equipoId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "identificador", source = "identificador")
     EquipoDTO toDtoEquipoId(Equipo equipo);
 }

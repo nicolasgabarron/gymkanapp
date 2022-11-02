@@ -6,14 +6,17 @@ import com.nicogbdev.gymkanapp.service.VoluntarioService;
 import com.nicogbdev.gymkanapp.service.criteria.VoluntarioCriteria;
 import com.nicogbdev.gymkanapp.service.dto.VoluntarioDTO;
 import com.nicogbdev.gymkanapp.web.rest.errors.BadRequestAlertException;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -67,17 +70,25 @@ public class VoluntarioResource {
         if (voluntarioDTO.getId() != null) {
             throw new BadRequestAlertException("A new voluntario cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        VoluntarioDTO result = voluntarioService.save(voluntarioDTO);
-        return ResponseEntity
-            .created(new URI("/api/voluntarios/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+
+        try {
+            VoluntarioDTO result = voluntarioService.save(voluntarioDTO);
+
+            return ResponseEntity
+                .created(new URI("/api/voluntarios/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+                .body(result);
+
+        } catch (
+            DataIntegrityViolationException e) { // TODO: Echar vistazo a la manera en que se manda la excepción y se captura.
+            throw new BadRequestAlertException("A new voluntario cannot already have an ID", ENTITY_NAME, "idexists");
+        }
     }
 
     /**
      * {@code PUT  /voluntarios/:id} : Updates an existing voluntario.
      *
-     * @param id the id of the voluntarioDTO to save.
+     * @param id            the id of the voluntarioDTO to save.
      * @param voluntarioDTO the voluntarioDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated voluntarioDTO,
      * or with status {@code 400 (Bad Request)} if the voluntarioDTO is not valid,
@@ -111,7 +122,7 @@ public class VoluntarioResource {
     /**
      * {@code PATCH  /voluntarios/:id} : Partial updates given fields of an existing voluntario, field will ignore if it is null
      *
-     * @param id the id of the voluntarioDTO to save.
+     * @param id            the id of the voluntarioDTO to save.
      * @param voluntarioDTO the voluntarioDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated voluntarioDTO,
      * or with status {@code 400 (Bad Request)} if the voluntarioDTO is not valid,
@@ -119,7 +130,7 @@ public class VoluntarioResource {
      * or with status {@code 500 (Internal Server Error)} if the voluntarioDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/voluntarios/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(value = "/voluntarios/{id}", consumes = {"application/json", "application/merge-patch+json"})
     public ResponseEntity<VoluntarioDTO> partialUpdateVoluntario(
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody VoluntarioDTO voluntarioDTO
