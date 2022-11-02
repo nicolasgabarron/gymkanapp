@@ -4,7 +4,7 @@
       "home": {
         "title": "Voluntarios",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Voluntario",
+        "createLabel": "Dar de alta un voluntario",
         "createOrEditLabel": "Crear o editar Voluntario",
         "notFound": "Ningún Voluntarios encontrado"
       },
