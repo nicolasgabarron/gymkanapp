@@ -40,7 +40,7 @@ public class Voluntario implements Serializable {
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(unique = true)
     private User usuarioApp;
 
