@@ -43,7 +43,7 @@
             [compareWith]="compareEquipo"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="equipoOption" *ngFor="let equipoOption of equiposSharedCollection">{{ equipoOption.id }}</option>
+            <option [ngValue]="equipoOption" *ngFor="let equipoOption of equiposSharedCollection">{{ equipoOption.identificador }}</option>
           </select>
         </div>
 
@@ -59,24 +59,7 @@
           >
             <option [ngValue]="null"></option>
             <option [ngValue]="puntoControlOption" *ngFor="let puntoControlOption of puntoControlsSharedCollection">
-              {{ puntoControlOption.id }}
-            </option>
-          </select>
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gymkanappApp.pasoControl.validadoPor" for="field_validadoPor">Validado Por</label>
-          <select
-            class="form-control"
-            id="field_validadoPor"
-            data-cy="validadoPor"
-            name="validadoPor"
-            formControlName="validadoPor"
-            [compareWith]="compareVoluntario"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="voluntarioOption" *ngFor="let voluntarioOption of voluntariosSharedCollection">
-              {{ voluntarioOption.id }}
+              {{ puntoControlOption.nombre }}
             </option>
           </select>
         </div>
