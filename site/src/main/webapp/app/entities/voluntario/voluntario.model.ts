@@ -9,7 +9,7 @@ export interface IVoluntario {
   apellidos?: string | null;
   fechaNacimiento?: dayjs.Dayjs | null;
   usuarioApp?: Pick<IUser, 'id'> | null;
-  puntoControl?: Pick<IPuntoControl, 'id'> | null;
+  puntoControl?: Pick<IPuntoControl, 'id' | 'nombre'> | null;
 }
 
 export type NewVoluntario = Omit<IVoluntario, 'id'> & { id: null };
