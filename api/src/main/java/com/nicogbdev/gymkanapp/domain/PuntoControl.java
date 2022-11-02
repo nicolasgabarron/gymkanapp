@@ -10,10 +10,7 @@ import javax.persistence.*;
  * A PuntoControl.
  */
 @NamedEntityGraph(
-    name = "punto-control-entity-graph",
-    attributeNodes = {
-        @NamedAttributeNode("voluntarios")
-    }
+    name = "punto-control-entity-graph"
 )
 @Entity
 @Table(name = "punto_control")

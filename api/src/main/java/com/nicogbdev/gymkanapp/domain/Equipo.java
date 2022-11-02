@@ -10,10 +10,7 @@ import javax.persistence.*;
  * A Equipo.
  */
 @NamedEntityGraph(
-    name = "equipo-entity-graph",
-    attributeNodes = {
-        @NamedAttributeNode("participantes")
-    }
+    name = "equipo-entity-graph"
 )
 @Entity
 @Table(name = "equipo")
