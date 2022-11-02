@@ -34,12 +34,6 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span jhiTranslate="global.field.id">ID</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="fechaHora">
             <div class="d-flex">
               <span jhiTranslate="gymkanappApp.pasoControl.fechaHora">Fecha Hora</span>
@@ -69,23 +63,20 @@
       </thead>
       <tbody>
         <tr *ngFor="let pasoControl of pasoControls; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/paso-control', pasoControl.id, 'view']">{{ pasoControl.id }}</a>
-          </td>
           <td>{{ pasoControl.fechaHora | formatMediumDatetime }}</td>
           <td>
             <div *ngIf="pasoControl.equipo">
-              <a [routerLink]="['/equipo', pasoControl.equipo.id, 'view']">{{ pasoControl.equipo.id }}</a>
+              <a [routerLink]="['/equipo', pasoControl.equipo.id, 'view']">{{ pasoControl.equipo.identificador }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="pasoControl.puntoControl">
-              <a [routerLink]="['/punto-control', pasoControl.puntoControl.id, 'view']">{{ pasoControl.puntoControl.id }}</a>
+              <a [routerLink]="['/punto-control', pasoControl.puntoControl.id, 'view']">{{ pasoControl.puntoControl.nombre }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="pasoControl.validadoPor">
-              <a [routerLink]="['/voluntario', pasoControl.validadoPor.id, 'view']">{{ pasoControl.validadoPor.id }}</a>
+              <a [routerLink]="['/voluntario', pasoControl.validadoPor.id, 'view']">{{ pasoControl.validadoPor.dni }}</a>
             </div>
           </td>
           <td class="text-end">
