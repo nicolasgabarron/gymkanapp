@@ -6,14 +6,17 @@ import com.nicogbdev.gymkanapp.service.ParticipanteService;
 import com.nicogbdev.gymkanapp.service.criteria.ParticipanteCriteria;
 import com.nicogbdev.gymkanapp.service.dto.ParticipanteDTO;
 import com.nicogbdev.gymkanapp.web.rest.errors.BadRequestAlertException;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -67,17 +70,24 @@ public class ParticipanteResource {
         if (participanteDTO.getId() != null) {
             throw new BadRequestAlertException("A new participante cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ParticipanteDTO result = participanteService.save(participanteDTO);
-        return ResponseEntity
-            .created(new URI("/api/participantes/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+
+        try { // TODO: Revisar excepción. Quizá se puede lanzar una específica dentro del método save y aquí capturar dicha excepción
+            ParticipanteDTO result = participanteService.save(participanteDTO);
+
+            return ResponseEntity
+                .created(new URI("/api/participantes/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+                .body(result);
+        } catch (DataIntegrityViolationException e) {
+            throw new BadRequestAlertException("A new participante cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+
     }
 
     /**
      * {@code PUT  /participantes/:id} : Updates an existing participante.
      *
-     * @param id the id of the participanteDTO to save.
+     * @param id              the id of the participanteDTO to save.
      * @param participanteDTO the participanteDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated participanteDTO,
      * or with status {@code 400 (Bad Request)} if the participanteDTO is not valid,
@@ -111,7 +121,7 @@ public class ParticipanteResource {
     /**
      * {@code PATCH  /participantes/:id} : Partial updates given fields of an existing participante, field will ignore if it is null
      *
-     * @param id the id of the participanteDTO to save.
+     * @param id              the id of the participanteDTO to save.
      * @param participanteDTO the participanteDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated participanteDTO,
      * or with status {@code 400 (Bad Request)} if the participanteDTO is not valid,
@@ -119,7 +129,7 @@ public class ParticipanteResource {
      * or with status {@code 500 (Internal Server Error)} if the participanteDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/participantes/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(value = "/participantes/{id}", consumes = {"application/json", "application/merge-patch+json"})
     public ResponseEntity<ParticipanteDTO> partialUpdateParticipante(
         @PathVariable(value = "id", required = false) final Long id,
         @RequestBody ParticipanteDTO participanteDTO
