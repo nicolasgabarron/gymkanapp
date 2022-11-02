@@ -2,9 +2,9 @@
   "gymkanappApp": {
     "puntoControl": {
       "home": {
-        "title": "Punto Controls",
+        "title": "Puntos de control",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Punto Control",
+        "createLabel": "Crear un nuevo punto de control",
         "createOrEditLabel": "Create or edit a Punto Control",
         "notFound": "No Punto Controls found"
       },
