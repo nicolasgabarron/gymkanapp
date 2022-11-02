@@ -66,7 +66,7 @@ public class VoluntarioServiceImpl implements VoluntarioService {
         // Creación del usuario que utilizará el voluntario
         User voluntarioUser = new User();
         voluntarioUser.setLogin(voluntarioDTO.getDni());
-        voluntarioUser.setPassword(passwordEncoder.encode("SoyComoTu"));
+        voluntarioUser.setPassword(passwordEncoder.encode("SoyComoTu_" + voluntarioDTO.getDni()));
         voluntarioUser.setFirstName(voluntarioDTO.getNombre());
         voluntarioUser.setLastName(voluntarioDTO.getApellidos());
         voluntarioUser.setActivated(true);
