@@ -25,5 +25,6 @@ public interface VoluntarioMapper extends EntityMapper<VoluntarioDTO, Voluntario
     @Named("puntoControlId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "nombre", source = "nombre")
     PuntoControlDTO toDtoPuntoControlId(PuntoControl puntoControl);
 }
