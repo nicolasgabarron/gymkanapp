@@ -2,9 +2,9 @@
   "gymkanappApp": {
     "pasoControl": {
       "home": {
-        "title": "Paso Controls",
+        "title": "Control de paso",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Paso Control",
+        "createLabel": "Nueva entrada",
         "createOrEditLabel": "Crear o editar Paso Control",
         "notFound": "Ningún Paso Controls encontrado"
       },
