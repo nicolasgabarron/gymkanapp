@@ -4,7 +4,7 @@
       "home": {
         "title": "Participantes",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Participante",
+        "createLabel": "Dar de alta un participante",
         "createOrEditLabel": "Crear o editar Participante",
         "notFound": "Ningún Participantes encontrado"
       },
@@ -18,10 +18,10 @@
         "title": "Participante"
       },
       "id": "ID",
-      "dni": "Dni",
+      "dni": "D.N.I.",
       "nombre": "Nombre",
       "apellidos": "Apellidos",
-      "fechaNacimiento": "Fecha Nacimiento",
+      "fechaNacimiento": "Fecha de nacimiento",
       "usuarioApp": "Usuario App",
       "equipo": "Equipo"
     }

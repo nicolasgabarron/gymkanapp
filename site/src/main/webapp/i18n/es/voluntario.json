@@ -4,7 +4,7 @@
       "home": {
         "title": "Voluntarios",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Voluntario",
+        "createLabel": "Dar de alta un voluntario",
         "createOrEditLabel": "Crear o editar Voluntario",
         "notFound": "Ningún Voluntarios encontrado"
       },
@@ -18,12 +18,12 @@
         "title": "Voluntario"
       },
       "id": "ID",
-      "dni": "Dni",
+      "dni": "D.N.I.",
       "nombre": "Nombre",
       "apellidos": "Apellidos",
-      "fechaNacimiento": "Fecha Nacimiento",
+      "fechaNacimiento": "Fecha de nacimiento",
       "usuarioApp": "Usuario App",
-      "puntoControl": "Punto Control"
+      "puntoControl": "Punto de control"
     }
   }
 }
