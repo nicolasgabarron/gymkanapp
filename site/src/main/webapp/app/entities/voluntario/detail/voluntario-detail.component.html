@@ -30,14 +30,10 @@
         <dd>
           <span>{{ voluntario.fechaNacimiento | formatMediumDate }}</span>
         </dd>
-        <dt><span jhiTranslate="gymkanappApp.voluntario.usuarioApp">Usuario App</span></dt>
-        <dd>
-          <span>{{ voluntario.usuarioApp?.id }}</span>
-        </dd>
         <dt><span jhiTranslate="gymkanappApp.voluntario.puntoControl">Punto Control</span></dt>
         <dd>
           <div *ngIf="voluntario.puntoControl">
-            <a [routerLink]="['/punto-control', voluntario.puntoControl.id, 'view']">{{ voluntario.puntoControl.id }}</a>
+            <a [routerLink]="['/punto-control', voluntario.puntoControl.id, 'view']">{{ voluntario.puntoControl.nombre }}</a>
           </div>
         </dd>
       </dl>

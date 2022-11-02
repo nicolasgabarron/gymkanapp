@@ -15,7 +15,7 @@
         "question": "Are you sure you want to delete Paso Control {{ id }}?"
       },
       "detail": {
-        "title": "Paso Control"
+        "title": "Detalle del paso"
       },
       "id": "ID",
       "fechaHora": "Fecha y hora",

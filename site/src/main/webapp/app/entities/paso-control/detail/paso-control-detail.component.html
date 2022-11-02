@@ -21,19 +21,19 @@
         <dt><span jhiTranslate="gymkanappApp.pasoControl.equipo">Equipo</span></dt>
         <dd>
           <div *ngIf="pasoControl.equipo">
-            <a [routerLink]="['/equipo', pasoControl.equipo.id, 'view']">{{ pasoControl.equipo.id }}</a>
+            <a [routerLink]="['/equipo', pasoControl.equipo.id, 'view']">{{ pasoControl.equipo.identificador }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="gymkanappApp.pasoControl.puntoControl">Punto Control</span></dt>
         <dd>
           <div *ngIf="pasoControl.puntoControl">
-            <a [routerLink]="['/punto-control', pasoControl.puntoControl.id, 'view']">{{ pasoControl.puntoControl.id }}</a>
+            <a [routerLink]="['/punto-control', pasoControl.puntoControl.id, 'view']">{{ pasoControl.puntoControl.nombre }}</a>
           </div>
         </dd>
         <dt><span jhiTranslate="gymkanappApp.pasoControl.validadoPor">Validado Por</span></dt>
         <dd>
           <div *ngIf="pasoControl.validadoPor">
-            <a [routerLink]="['/voluntario', pasoControl.validadoPor.id, 'view']">{{ pasoControl.validadoPor.id }}</a>
+            <a [routerLink]="['/voluntario', pasoControl.validadoPor.id, 'view']">{{ pasoControl.validadoPor.dni }}</a>
           </div>
         </dd>
       </dl>
