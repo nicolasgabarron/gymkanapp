@@ -87,6 +87,22 @@ export class PasoControlUpdateComponent implements OnInit {
     .subscribe((equipos: IEquipo[]) => (this.equiposSharedCollection = equipos));
   }
 
+  searchPuntoControl(event: any): void{
+    const nombrePuntoControl = event.query;
+
+    const queryPControlObject: any = {
+      sort:['nombre,asc']
+    };
+
+    if(nombrePuntoControl){
+      queryPControlObject["nombre.contains"] = nombrePuntoControl;
+    }
+
+    this.puntoControlService.query(queryPControlObject)
+    .pipe(map((res: HttpResponse<IPuntoControl[]>) => res.body ?? []))
+    .subscribe((puntos: IPuntoControl[]) => (this.puntoControlsSharedCollection = puntos));
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IPasoControl>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
