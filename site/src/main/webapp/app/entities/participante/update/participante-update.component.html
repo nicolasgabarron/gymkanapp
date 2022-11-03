@@ -53,7 +53,13 @@
 
           <div class="col-12 col-md-6 mb-3">
             <label class="form-label" jhiTranslate="gymkanappApp.participante.equipo" for="field_equipo">Equipo</label>
-            <p-autoComplete formControlName="equipo" [suggestions]="equiposSharedCollection" (completeMethod)="searchEquipo($event)" [dropdown]="true" field="identificador"></p-autoComplete>
+            <p-autoComplete formControlName="equipo" [suggestions]="equiposSharedCollection" (completeMethod)="searchEquipo($event)" [dropdown]="true" field="nombre">
+              <ng-template let-equipo pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  {{equipo.identificador}} || {{equipo.nombre}}
+                </div>
+              </ng-template>
+            </p-autoComplete>
           </div>
         </div>
         </div>
