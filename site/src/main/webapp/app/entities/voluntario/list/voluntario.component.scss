@@ -1,0 +1,31 @@
+:host ::ng-deep {
+  .busqueda-avanzada {
+    padding: 10px;
+    background-color: rgba($color: gray, $alpha: 0.3);
+    border-radius: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    .title{
+      font-weight: 400;
+    }
+
+    .p-autocomplete{
+      width: 100%;
+      padding: 0;
+      height: 36px;
+
+      .p-autocomplete-input {
+        padding: 6px 12px 6px 12px;
+        border-radius: 0.15rem;
+      }
+    }
+
+    .botones {
+      margin-top: 15px;
+      .btn{
+        width: 15rem;
+      }
+    }
+  }
+}

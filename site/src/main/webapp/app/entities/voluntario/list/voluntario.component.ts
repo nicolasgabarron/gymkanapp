@@ -1,7 +1,9 @@
+import { PuntoControlService } from 'app/entities/punto-control/service/punto-control.service';
+import { IPuntoControl } from 'app/entities/punto-control/punto-control.model';
 import { Component, OnInit } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
-import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
+import { combineLatest, filter, map, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IVoluntario } from '../voluntario.model';
@@ -15,6 +17,7 @@ import { FilterOptions, IFilterOptions, IFilterOption } from 'app/shared/filter/
 @Component({
   selector: 'jhi-voluntario',
   templateUrl: './voluntario.component.html',
+  styleUrls: ['./voluntario.component.scss']
 })
 export class VoluntarioComponent implements OnInit {
   voluntarios?: IVoluntario[];
@@ -24,12 +27,17 @@ export class VoluntarioComponent implements OnInit {
   ascending = true;
   filters: IFilterOptions = new FilterOptions();
 
+  // Fields búsqueda avanzada
+  activeAdvancedSearch = false;
+  puntoControlsSharedCollection: IPuntoControl[] = [];
+
   itemsPerPage = ITEMS_PER_PAGE;
   totalItems = 0;
   page = 1;
 
   constructor(
     protected voluntarioService: VoluntarioService,
+    protected puntoControlService: PuntoControlService,
     protected activatedRoute: ActivatedRoute,
     public router: Router,
     protected modalService: NgbModal
@@ -73,6 +81,22 @@ export class VoluntarioComponent implements OnInit {
 
   navigateToPage(page = this.page): void {
     this.handleNavigation(page, this.predicate, this.ascending, this.filters.filterOptions);
+  }
+
+  searchPuntoControl(event: any): void{
+    const nombrePuntoControl = event.query;
+
+    const queryPControlObject: any = {
+      sort:['nombre,asc']
+    };
+
+    if(nombrePuntoControl){
+      queryPControlObject["nombre.contains"] = nombrePuntoControl;
+    }
+
+    this.puntoControlService.query(queryPControlObject)
+    .pipe(map((res: HttpResponse<IPuntoControl[]>) => res.body ?? []))
+    .subscribe((puntos: IPuntoControl[]) => (this.puntoControlsSharedCollection = puntos));
   }
 
   protected loadFromBackendWithRouteInformations(): Observable<EntityArrayResponseType> {
