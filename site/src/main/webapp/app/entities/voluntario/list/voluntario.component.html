@@ -3,6 +3,11 @@
     <span jhiTranslate="gymkanappApp.voluntario.home.title">Voluntarios</span>
 
     <div class="d-flex justify-content-end">
+      <button class="btn btn-warning me-2" (click)="this.activeAdvancedSearch = !this.activeAdvancedSearch" [disabled]="isLoading">
+        <fa-icon icon="magnifying-glass"></fa-icon>
+        <span jhiTranslate="busquedaAvanzada">Búsqueda avanzada</span>
+      </button>
+
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="gymkanappApp.voluntario.home.refreshListLabel">Refrescar lista</span>
@@ -24,7 +29,39 @@
 
   <jhi-alert></jhi-alert>
 
-  <jhi-filter [filters]="filters"></jhi-filter>
+  <div class="busqueda-avanzada" *ngIf="this.activeAdvancedSearch">
+    <div class="row">
+      <h4 class="col-12 col-md-12 title">Búsqueda avanzada</h4>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-2">
+        <label class="form-label" jhiTranslate="gymkanappApp.voluntario.dni" for="field_dni">Dni</label>
+        <input [(ngModel)]="dniFilter" type="text" class="form-control" name="dni" id="field_dni" data-cy="dni" />
+      </div>
+
+      <div class="col-12 col-md-3">
+        <label class="form-label" jhiTranslate="gymkanappApp.voluntario.nombre" for="field_nombre">Nombre</label>
+        <input [(ngModel)]="nombreFilter" type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" />
+      </div>
+
+      <div class="col-12 col-md-3">
+        <label class="form-label" jhiTranslate="gymkanappApp.voluntario.apellidos" for="field_apellidos">Apellidos</label>
+        <input [(ngModel)]="apellidosFilter" type="text" class="form-control" name="apellidos" id="field_apellidos" data-cy="apellidos" />
+      </div>
+
+      <div class="col-12 col-md-4">
+        <label class="form-label" jhiTranslate="gymkanappApp.voluntario.puntoControl" for="field_puntoControl">Punto Control</label>
+        <p-autoComplete [(ngModel)]="puntoControlFilter" [suggestions]="puntoControlsSharedCollection" (completeMethod)="searchPuntoControl($event)" [dropdown]="true" field="nombre"></p-autoComplete>
+      </div>
+    </div>
+
+    <div class="botones d-flex justify-content-end">
+      <button (click)="clearAdvancedSearch()" class="btn btn-secondary">Limpiar</button>
+      <button (click)="advancedSearch()" class="btn btn-primary">Buscar</button>
+    </div>
+
+  </div>
 
   <div class="alert alert-warning" id="no-result" *ngIf="voluntarios?.length === 0">
     <span jhiTranslate="gymkanappApp.voluntario.home.notFound">Ningún Voluntarios encontrado</span>

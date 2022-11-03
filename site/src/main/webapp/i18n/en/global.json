@@ -148,5 +148,6 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
+  "busquedaAvanzada": "Búsqueda avanzada",
   "footer": "© - Desarrollado por Nicolás Gabarrón Blaya"
 }
