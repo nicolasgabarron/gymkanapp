@@ -17,6 +17,7 @@ import { VoluntarioService } from 'app/entities/voluntario/service/voluntario.se
 @Component({
   selector: 'jhi-paso-control-update',
   templateUrl: './paso-control-update.component.html',
+  styleUrls: ['./paso-control.component.scss']
 })
 export class PasoControlUpdateComponent implements OnInit {
   isSaving = false;
@@ -67,6 +68,39 @@ export class PasoControlUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.pasoControlService.create(pasoControl));
     }
+  }
+
+  searchEquipo(event: any): void {
+    const IdentificadorNombreEquipo = event.query;
+
+    const queryIdentificadorNombre: any = {
+      sort:['nombre,asc']
+    };
+
+    if(IdentificadorNombreEquipo){
+      queryIdentificadorNombre["identificador.contains"] = IdentificadorNombreEquipo;
+      queryIdentificadorNombre["nombre.contains"] = IdentificadorNombreEquipo;
+    }
+
+    this.equipoService.query(queryIdentificadorNombre)
+    .pipe(map((res: HttpResponse<IEquipo[]>) => res.body ?? []))
+    .subscribe((equipos: IEquipo[]) => (this.equiposSharedCollection = equipos));
+  }
+
+  searchPuntoControl(event: any): void{
+    const nombrePuntoControl = event.query;
+
+    const queryPControlObject: any = {
+      sort:['nombre,asc']
+    };
+
+    if(nombrePuntoControl){
+      queryPControlObject["nombre.contains"] = nombrePuntoControl;
+    }
+
+    this.puntoControlService.query(queryPControlObject)
+    .pipe(map((res: HttpResponse<IPuntoControl[]>) => res.body ?? []))
+    .subscribe((puntos: IPuntoControl[]) => (this.puntoControlsSharedCollection = puntos));
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IPasoControl>>): void {

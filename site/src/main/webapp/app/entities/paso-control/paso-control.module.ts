@@ -1,3 +1,4 @@
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'app/shared/shared.module';
 import { PasoControlComponent } from './list/paso-control.component';
@@ -7,7 +8,7 @@ import { PasoControlDeleteDialogComponent } from './delete/paso-control-delete-d
 import { PasoControlRoutingModule } from './route/paso-control-routing.module';
 
 @NgModule({
-  imports: [SharedModule, PasoControlRoutingModule],
+  imports: [SharedModule, PasoControlRoutingModule, AutoCompleteModule],
   declarations: [PasoControlComponent, PasoControlDetailComponent, PasoControlUpdateComponent, PasoControlDeleteDialogComponent],
 })
 export class PasoControlModule {}
