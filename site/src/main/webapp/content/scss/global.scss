@@ -165,6 +165,15 @@ entity list page css
   margin: auto 0;
 }
 
+table{
+  border: 1px black solid;
+  border-radius: 5px;
+
+  .btn{
+    border-radius: 5px;
+  }
+}
+
 /* ==========================================================================
 entity detail page css
 ========================================================================== */
