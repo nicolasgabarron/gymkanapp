@@ -15,6 +15,7 @@ import { PuntoControlService } from 'app/entities/punto-control/service/punto-co
 @Component({
   selector: 'jhi-voluntario-update',
   templateUrl: './voluntario-update.component.html',
+  styleUrls: ['./voluntario-update.component.scss']
 })
 export class VoluntarioUpdateComponent implements OnInit {
   isSaving = false;
@@ -61,6 +62,22 @@ export class VoluntarioUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.voluntarioService.create(voluntario));
     }
+  }
+
+  searchPuntoControl(event: any): void{
+    const nombrePuntoControl = event.query;
+
+    const queryPControlObject: any = {
+      sort:['nombre,asc']
+    };
+
+    if(nombrePuntoControl){
+      queryPControlObject["nombre.contains"] = nombrePuntoControl;
+    }
+
+    this.puntoControlService.query(queryPControlObject)
+    .pipe(map((res: HttpResponse<IPuntoControl[]>) => res.body ?? []))
+    .subscribe((puntos: IPuntoControl[]) => (this.puntoControlsSharedCollection = puntos));
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IVoluntario>>): void {

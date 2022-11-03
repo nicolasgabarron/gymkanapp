@@ -5,6 +5,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import dayjs from 'dayjs/esm';
 
 import { AccountService } from 'app/core/auth/account.service';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'jhi-main',
@@ -19,7 +20,8 @@ export class MainComponent implements OnInit {
     private titleService: Title,
     private router: Router,
     private translateService: TranslateService,
-    rootRenderer: RendererFactory2
+    rootRenderer: RendererFactory2,
+    private primengConfig: PrimeNGConfig
   ) {
     this.renderer = rootRenderer.createRenderer(document.querySelector('html'), null);
   }
@@ -27,6 +29,8 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     // try to log in automatically
     this.accountService.identity().subscribe();
+
+    this.primengConfig.ripple = true;
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
