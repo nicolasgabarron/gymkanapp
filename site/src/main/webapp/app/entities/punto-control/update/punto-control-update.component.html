@@ -12,37 +12,37 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        <div class="row">
+          <div class="col-12 col-md-3 mb-3">
+            <label class="form-label" jhiTranslate="gymkanappApp.puntoControl.identificador" for="field_identificador">Identificador</label>
+            <input
+              type="text"
+              class="form-control"
+              name="identificador"
+              id="field_identificador"
+              data-cy="identificador"
+              formControlName="identificador"
+            />
+          </div>
+
+          <div class="col-12 col-md-2 mb-3">
+            <label class="form-label" jhiTranslate="gymkanappApp.puntoControl.orden" for="field_orden">Orden</label>
+            <input type="number" class="form-control" name="orden" id="field_orden" data-cy="orden" formControlName="orden" />
+          </div>
+
+          <div class="col-12 col-md-7 mb-3">
+            <label class="form-label" jhiTranslate="gymkanappApp.puntoControl.nombre" for="field_nombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
+          </div>
         </div>
 
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gymkanappApp.puntoControl.identificador" for="field_identificador">Identificador</label>
-          <input
-            type="text"
-            class="form-control"
-            name="identificador"
-            id="field_identificador"
-            data-cy="identificador"
-            formControlName="identificador"
-          />
+        <div class="row">
+          <div class="col-12 col-md-12 mb-3">
+            <label class="form-label" jhiTranslate="gymkanappApp.puntoControl.direccion" for="field_direccion">Direccion</label>
+            <input type="text" class="form-control" name="direccion" id="field_direccion" data-cy="direccion" formControlName="direccion" />
+          </div>
         </div>
 
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gymkanappApp.puntoControl.orden" for="field_orden">Orden</label>
-          <input type="number" class="form-control" name="orden" id="field_orden" data-cy="orden" formControlName="orden" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gymkanappApp.puntoControl.nombre" for="field_nombre">Nombre</label>
-          <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gymkanappApp.puntoControl.direccion" for="field_direccion">Direccion</label>
-          <input type="text" class="form-control" name="direccion" id="field_direccion" data-cy="direccion" formControlName="direccion" />
-        </div>
       </div>
 
       <div>
