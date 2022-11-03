@@ -30,6 +30,10 @@ export class VoluntarioComponent implements OnInit {
   // Fields búsqueda avanzada
   activeAdvancedSearch = false;
   puntoControlsSharedCollection: IPuntoControl[] = [];
+  dniFilter?: string;
+  nombreFilter?: string;
+  apellidosFilter?: string;
+  puntoControlFilter?: IPuntoControl;
 
   itemsPerPage = ITEMS_PER_PAGE;
   totalItems = 0;
