@@ -12,62 +12,61 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
+        <div class="row">
+          <div class="col-12 col-md-2 mb-3">
+            <label class="form-label" jhiTranslate="gymkanappApp.participante.dni" for="field_dni">Dni</label>
+            <input type="text" class="form-control" name="dni" id="field_dni" data-cy="dni" formControlName="dni" />
+          </div>
 
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gymkanappApp.participante.dni" for="field_dni">Dni</label>
-          <input type="text" class="form-control" name="dni" id="field_dni" data-cy="dni" formControlName="dni" />
-        </div>
+          <div class="col-12 col-md-5 mb-3">
+            <label class="form-label" jhiTranslate="gymkanappApp.participante.nombre" for="field_nombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
+          </div>
 
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gymkanappApp.participante.nombre" for="field_nombre">Nombre</label>
-          <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gymkanappApp.participante.apellidos" for="field_apellidos">Apellidos</label>
-          <input type="text" class="form-control" name="apellidos" id="field_apellidos" data-cy="apellidos" formControlName="apellidos" />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gymkanappApp.participante.fechaNacimiento" for="field_fechaNacimiento"
-            >Fecha Nacimiento</label
-          >
-          <div class="input-group">
-            <input
-              id="field_fechaNacimiento"
-              data-cy="fechaNacimiento"
-              type="text"
-              class="form-control"
-              name="fechaNacimiento"
-              ngbDatepicker
-              #fechaNacimientoDp="ngbDatepicker"
-              formControlName="fechaNacimiento"
-            />
-            <button type="button" class="btn btn-secondary" (click)="fechaNacimientoDp.toggle()">
-              <fa-icon icon="calendar-alt"></fa-icon>
-            </button>
+          <div class="col-12 col-md-5 mb-3">
+            <label class="form-label" jhiTranslate="gymkanappApp.participante.apellidos" for="field_apellidos">Apellidos</label>
+            <input type="text" class="form-control" name="apellidos" id="field_apellidos" data-cy="apellidos" formControlName="apellidos" />
           </div>
         </div>
 
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gymkanappApp.participante.equipo" for="field_equipo">Equipo</label>
-          <select
-            class="form-control"
-            id="field_equipo"
-            data-cy="equipo"
-            name="equipo"
-            formControlName="equipo"
-            [compareWith]="compareEquipo"
-          >
-            <option [ngValue]="null"></option>
-            <option [ngValue]="equipoOption" *ngFor="let equipoOption of equiposSharedCollection">{{ equipoOption.identificador }}</option>
-          </select>
+        <div class="row">
+          <div class="col-12 col-md-6 mb-3">
+            <label class="form-label" jhiTranslate="gymkanappApp.participante.fechaNacimiento" for="field_fechaNacimiento"
+              >Fecha Nacimiento</label
+            >
+            <div class="input-group">
+              <input
+                id="field_fechaNacimiento"
+                data-cy="fechaNacimiento"
+                type="text"
+                class="form-control"
+                name="fechaNacimiento"
+                ngbDatepicker
+                #fechaNacimientoDp="ngbDatepicker"
+                formControlName="fechaNacimiento"
+              />
+              <button type="button" class="btn btn-secondary" (click)="fechaNacimientoDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 mb-3">
+            <label class="form-label" jhiTranslate="gymkanappApp.participante.equipo" for="field_equipo">Equipo</label>
+            <select
+              class="form-control"
+              id="field_equipo"
+              data-cy="equipo"
+              name="equipo"
+              formControlName="equipo"
+              [compareWith]="compareEquipo"
+            >
+              <option [ngValue]="null"></option>
+              <option [ngValue]="equipoOption" *ngFor="let equipoOption of equiposSharedCollection">{{ equipoOption.identificador }}</option>
+            </select>
+          </div>
         </div>
-      </div>
+        </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
