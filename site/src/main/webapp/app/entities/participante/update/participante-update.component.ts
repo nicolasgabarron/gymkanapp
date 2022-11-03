@@ -15,6 +15,7 @@ import { EquipoService } from 'app/entities/equipo/service/equipo.service';
 @Component({
   selector: 'jhi-participante-update',
   templateUrl: './participante-update.component.html',
+  styleUrls: ['./participante-update.component.scss']
 })
 export class ParticipanteUpdateComponent implements OnInit {
   isSaving = false;
@@ -60,6 +61,23 @@ export class ParticipanteUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.participanteService.create(participante));
     }
+  }
+
+  searchEquipo(event: any): void {
+    const IdentificadorNombreEquipo = event.query;
+
+    const queryIdentificadorNombre: any = {
+      sort:['nombre,asc']
+    };
+
+    if(IdentificadorNombreEquipo){
+      queryIdentificadorNombre["identificador.contains"] = IdentificadorNombreEquipo;
+      queryIdentificadorNombre["nombre.contains"] = IdentificadorNombreEquipo;
+    }
+
+    this.equipoService.query(queryIdentificadorNombre)
+    .pipe(map((res: HttpResponse<IEquipo[]>) => res.body ?? []))
+    .subscribe((equipos: IEquipo[]) => (this.equiposSharedCollection = equipos));
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IParticipante>>): void {

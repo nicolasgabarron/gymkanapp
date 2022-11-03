@@ -1,3 +1,4 @@
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'app/shared/shared.module';
 import { ParticipanteComponent } from './list/participante.component';
@@ -7,7 +8,7 @@ import { ParticipanteDeleteDialogComponent } from './delete/participante-delete-
 import { ParticipanteRoutingModule } from './route/participante-routing.module';
 
 @NgModule({
-  imports: [SharedModule, ParticipanteRoutingModule],
+  imports: [SharedModule, ParticipanteRoutingModule, AutoCompleteModule],
   declarations: [ParticipanteComponent, ParticipanteDetailComponent, ParticipanteUpdateComponent, ParticipanteDeleteDialogComponent],
 })
 export class ParticipanteModule {}
