@@ -8,28 +8,26 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
-          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        <div class="row">
+          <div class="col-12 col-md-4 mb-3">
+            <label class="form-label" jhiTranslate="gymkanappApp.equipo.identificador" for="field_identificador">Identificador</label>
+            <input
+              type="text"
+              class="form-control"
+              name="identificador"
+              id="field_identificador"
+              data-cy="identificador"
+              formControlName="identificador"
+            />
+          </div>
+
+          <div class="col-12 col-md-8 mb-3">
+            <label class="form-label" jhiTranslate="gymkanappApp.equipo.nombre" for="field_nombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
+          </div>
         </div>
 
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gymkanappApp.equipo.identificador" for="field_identificador">Identificador</label>
-          <input
-            type="text"
-            class="form-control"
-            name="identificador"
-            id="field_identificador"
-            data-cy="identificador"
-            formControlName="identificador"
-          />
         </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="gymkanappApp.equipo.nombre" for="field_nombre">Nombre</label>
-          <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
-        </div>
-      </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
