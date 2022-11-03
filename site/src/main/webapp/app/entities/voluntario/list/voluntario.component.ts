@@ -103,6 +103,58 @@ export class VoluntarioComponent implements OnInit {
     .subscribe((puntos: IPuntoControl[]) => (this.puntoControlsSharedCollection = puntos));
   }
 
+  clearAdvancedSearch(): void {
+    this.filters.clear();
+    this.dniFilter = '';
+    this.nombreFilter = '';
+    this.apellidosFilter = '';
+    this.puntoControlFilter = undefined;
+  }
+
+  advancedSearch(): void {
+    // Comprobaciones de qué datos están cambiados
+    if(this.dniFilter){
+      const dniFilterOption = this.filters.getFilterOptionByName('dni.contains');
+
+      if(dniFilterOption){
+        this.filters.removeFilter('dni.contains');
+      }
+
+      this.filters.addFilter('dni.contains', ...[this.dniFilter]);
+    }
+
+    if(this.nombreFilter){
+      const nombreFilterOption = this.filters.getFilterOptionByName('nombre.contains');
+
+      if(nombreFilterOption){
+        this.filters.removeFilter('nombre.contains');
+      }
+
+      this.filters.addFilter('nombre.contains', ...[this.nombreFilter]);
+    }
+
+    if(this.apellidosFilter){
+      const apellidosFilterOption = this.filters.getFilterOptionByName('apellidos.contains');
+
+      if(apellidosFilterOption){
+        this.filters.removeFilter('apellidos.contains');
+      }
+
+      this.filters.addFilter('apellidos.contains', ...[this.apellidosFilter]);
+    }
+
+    if(this.puntoControlFilter){
+      const puntoControlFilterOption = this.filters.getFilterOptionByName('puntoControlId.in');
+
+      if(puntoControlFilterOption){
+        this.filters.removeFilter('puntoControlId.in');
+      }
+
+      this.filters.addFilter('puntoControlId.in', ...[this.puntoControlFilter.id.toString()]);
+    }
+
+  }
+
   protected loadFromBackendWithRouteInformations(): Observable<EntityArrayResponseType> {
     return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(
       tap(([params, data]) => this.fillComponentAttributeFromRoute(params, data)),
