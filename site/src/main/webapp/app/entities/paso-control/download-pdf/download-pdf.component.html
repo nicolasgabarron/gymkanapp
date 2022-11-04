@@ -1,38 +1,37 @@
-<form name="downloadForm">
-  <div class="modal-header">
-    <h4 class="modal-title" data-cy="gastoDownloadDialogHeading">Seleccione qué quiere exportar</h4>
+<div class="modal-header">
+  <h4 class="modal-title" data-cy="gastoDownloadDialogHeading">Seleccione qué quiere exportar</h4>
 
-    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+  <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+</div>
+
+<div class="modal-body">
+  <jhi-alert-error></jhi-alert-error>
+  <div class="row mt-2">
+
+    <div class="col-12 col-md-6 form-group">
+      <label>Equipo</label>
+      <p-autoComplete [(ngModel)]="equipoForm" [suggestions]="equiposSharedCollection"
+        (completeMethod)="searchEquipos($event)" [minLength]="2" [delay]="500" field="nombre" [dropdown]="true">
+      </p-autoComplete>
+    </div>
+
+
+
+    <div class="col-12 col-md-6 form-group">
+      <label>Punto de control</label>
+      <p-autoComplete [(ngModel)]="puntoControlForm" [suggestions]="puntosControlSharedCollection"
+        (completeMethod)="searchPuntosControl($event)" field="nombre" [dropdown]="true"></p-autoComplete>
+    </div>
   </div>
+</div>
 
-  <div class="modal-body">
-    <jhi-alert-error></jhi-alert-error>
-      <div class="row mt-2">
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+  </button>
 
-        <div class="col-12 col-md-6 form-group">
-          <label>Equipo</label>
-          <p-autoComplete [(ngModel)]="equipoForm" [suggestions]="equiposSharedCollection"
-            (completeMethod)="searchEquipos($event)" [minLength]="2" [delay]="500" field="nombre" [dropdown]="true">
-          </p-autoComplete>
-        </div>
-
-
-
-        <div class="col-12 col-md-6 form-group">
-          <label>Punto de control</label>
-          <p-autoComplete [(ngModel)]="puntoControlForm" [suggestions]="puntosControlSharedCollection"
-            (completeMethod)="searchPuntosControl($event)" field="nombre" [dropdown]="true"></p-autoComplete>
-        </div>
-      </div>
-  </div>
-
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
-      <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
-    </button>
-
-    <button id="jhi-confirm-download-gasto" data-cy="entityConfirmDeleteButton" (click)="download()" class="btn btn-primary">
-      <fa-icon icon="download"></fa-icon>&nbsp;<span>Descargar</span>
-    </button>
-  </div>
-</form>
+  <button id="jhi-confirm-download-gasto" data-cy="entityConfirmDeleteButton" (click)="download()"
+    class="btn btn-primary">
+    <fa-icon icon="download"></fa-icon>&nbsp;<span>Descargar</span>
+  </button>
+</div>
