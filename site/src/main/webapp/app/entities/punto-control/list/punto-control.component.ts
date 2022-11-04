@@ -15,6 +15,7 @@ import { FilterOptions, IFilterOptions, IFilterOption } from 'app/shared/filter/
 @Component({
   selector: 'jhi-punto-control',
   templateUrl: './punto-control.component.html',
+  styleUrls: ['./punto-control.component.scss']
 })
 export class PuntoControlComponent implements OnInit {
   puntoControls?: IPuntoControl[];
@@ -23,6 +24,12 @@ export class PuntoControlComponent implements OnInit {
   predicate = 'id';
   ascending = true;
   filters: IFilterOptions = new FilterOptions();
+
+  // Búsqueda avanzada
+  activeAdvancedSearch = false;
+  identificadorFilter?: string;
+  nombreFilter?: string;
+  direccionFilter?: string;
 
   itemsPerPage = ITEMS_PER_PAGE;
   totalItems = 0;
@@ -33,7 +40,7 @@ export class PuntoControlComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     public router: Router,
     protected modalService: NgbModal
-  ) {}
+  ) { }
 
   trackId = (_index: number, item: IPuntoControl): number => this.puntoControlService.getPuntoControlIdentifier(item);
 
@@ -73,6 +80,51 @@ export class PuntoControlComponent implements OnInit {
 
   navigateToPage(page = this.page): void {
     this.handleNavigation(page, this.predicate, this.ascending, this.filters.filterOptions);
+  }
+
+  advancedSearch(): void {
+    // Comprobaciones de qué datos están cambiados
+    if (this.identificadorFilter) {
+      const identificadorFilterOption = this.filters.getFilterOptionByName('identificador.contains');
+
+      if (identificadorFilterOption) {
+        this.filters.removeFilter('identificador.contains');
+      }
+
+      this.filters.addFilter('identificador.contains', ...[this.identificadorFilter]);
+    }
+
+    if (this.nombreFilter) {
+      const nombreFilterOption = this.filters.getFilterOptionByName('nombre.contains');
+
+      if (nombreFilterOption) {
+        this.filters.removeFilter('nombre.contains');
+      }
+
+      this.filters.addFilter('nombre.contains', ...[this.nombreFilter]);
+    }
+
+    if (this.direccionFilter) {
+      const direccionFilterOption = this.filters.getFilterOptionByName('direccion.contains');
+
+      if (direccionFilterOption) {
+        this.filters.removeFilter('direccion.contains');
+      }
+
+      this.filters.addFilter('direccion.contains', ...[this.direccionFilter]);
+    }
+
+    // Si todos los campos están vacíos y el usuario da a buscar, se hace un clear.
+    if (!this.identificadorFilter && !this.nombreFilter && !this.direccionFilter) {
+      this.clearAdvancedSearch();
+    }
+  }
+
+  clearAdvancedSearch(): void {
+    this.filters.clear();
+    this.identificadorFilter = '';
+    this.nombreFilter = '';
+    this.direccionFilter = '';
   }
 
   protected loadFromBackendWithRouteInformations(): Observable<EntityArrayResponseType> {
