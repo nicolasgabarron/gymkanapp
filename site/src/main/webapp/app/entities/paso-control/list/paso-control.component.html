@@ -3,6 +3,11 @@
     <span jhiTranslate="gymkanappApp.pasoControl.home.title">Paso Controls</span>
 
     <div class="d-flex justify-content-end">
+      <button class="btn btn-success me-2" (click)="null" [disabled]="isLoading">
+        <fa-icon icon="file-pdf"></fa-icon>
+        <span>Exportar a PDF</span>
+      </button>
+
       <button class="btn btn-warning me-2" (click)="this.activeAdvancedSearch = !this.activeAdvancedSearch" [disabled]="isLoading">
         <fa-icon icon="magnifying-glass"></fa-icon>
         <span jhiTranslate="busquedaAvanzada">Búsqueda avanzada</span>
