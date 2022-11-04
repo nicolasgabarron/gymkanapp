@@ -6,9 +6,10 @@ import { PasoControlDetailComponent } from './detail/paso-control-detail.compone
 import { PasoControlUpdateComponent } from './update/paso-control-update.component';
 import { PasoControlDeleteDialogComponent } from './delete/paso-control-delete-dialog.component';
 import { PasoControlRoutingModule } from './route/paso-control-routing.module';
+import { DownloadPdfComponent } from './download-pdf/download-pdf.component';
 
 @NgModule({
   imports: [SharedModule, PasoControlRoutingModule, AutoCompleteModule],
-  declarations: [PasoControlComponent, PasoControlDetailComponent, PasoControlUpdateComponent, PasoControlDeleteDialogComponent],
+  declarations: [PasoControlComponent, PasoControlDetailComponent, PasoControlUpdateComponent, PasoControlDeleteDialogComponent, DownloadPdfComponent],
 })
 export class PasoControlModule {}

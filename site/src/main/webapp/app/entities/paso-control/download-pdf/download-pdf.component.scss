@@ -1,0 +1,17 @@
+:host ::ng-deep {
+  .p-element{
+    padding: 0px;
+  }
+
+  .p-autocomplete{
+    width: 100%;
+    padding: 0;
+    height: 36px;
+
+    .p-autocomplete-input {
+      padding: 6px 12px 6px 12px;
+      border-radius: 0.15rem;
+    }
+  }
+
+}

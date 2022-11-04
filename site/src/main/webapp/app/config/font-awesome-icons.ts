@@ -42,6 +42,8 @@ import {
   faCampground,
   faCheckDouble,
   faMagnifyingGlass,
+  faFilePdf,
+  faDownload,
   // jhipster-needle-add-icon-import
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -89,6 +91,8 @@ export const fontAwesomeIcons = [
   faUsers,
   faCampground,
   faCheckDouble,
-  faMagnifyingGlass
+  faMagnifyingGlass,
+  faFilePdf,
+  faDownload
   // jhipster-needle-add-icon-import
 ];
