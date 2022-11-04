@@ -124,11 +124,36 @@ export class PasoControlComponent implements OnInit {
   }
 
   advancedSearch(): void {
-    //
+    if(this.equipoFilter){
+      const equipoFilterOption = this.filters.getFilterOptionByName('equipoId.in');
+
+      if(equipoFilterOption){
+        this.filters.removeFilter('equipoId.in');
+      }
+
+      this.filters.addFilter('equipoId.in', ...[this.equipoFilter.id.toString()]);
+    }
+
+    if(this.puntoControlFilter){
+      const puntoControlFilterOption = this.filters.getFilterOptionByName('puntoControlId.in');
+
+      if(puntoControlFilterOption){
+        this.filters.removeFilter('puntoControlId.in');
+      }
+
+      this.filters.addFilter('puntoControlId.in', ...[this.puntoControlFilter.id.toString()]);
+    }
+
+    // Si todos los campos están vacíos y el usuario da a buscar, se hace un clear.
+    if(!this.equipoFilter && !this.puntoControlFilter){
+      this.clearAdvancedSearch();
+    }
   }
 
   clearAdvancedSearch(): void {
-    //
+    this.filters.clear();
+    this.equipoFilter = undefined;
+    this.puntoControlFilter = undefined;
   }
 
   protected loadFromBackendWithRouteInformations(): Observable<EntityArrayResponseType> {
