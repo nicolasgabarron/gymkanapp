@@ -24,6 +24,11 @@ export class EquipoComponent implements OnInit {
   ascending = true;
   filters: IFilterOptions = new FilterOptions();
 
+  // Búsqueda avanzada
+  activeAdvancedSearch = false;
+  identificadorFilter?: string;
+  nombreFilter?:string;
+
   itemsPerPage = ITEMS_PER_PAGE;
   totalItems = 0;
   page = 1;
@@ -73,6 +78,14 @@ export class EquipoComponent implements OnInit {
 
   navigateToPage(page = this.page): void {
     this.handleNavigation(page, this.predicate, this.ascending, this.filters.filterOptions);
+  }
+
+  advancedSearch(): void {
+    //
+  }
+
+  clearAdvancedSearch(): void {
+    //
   }
 
   protected loadFromBackendWithRouteInformations(): Observable<EntityArrayResponseType> {

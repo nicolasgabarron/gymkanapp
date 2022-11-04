@@ -3,6 +3,11 @@
     <span jhiTranslate="gymkanappApp.equipo.home.title">Equipos</span>
 
     <div class="d-flex justify-content-end">
+      <button class="btn btn-warning me-2" (click)="this.activeAdvancedSearch = !this.activeAdvancedSearch" [disabled]="isLoading">
+        <fa-icon icon="magnifying-glass"></fa-icon>
+        <span jhiTranslate="busquedaAvanzada">Búsqueda avanzada</span>
+      </button>
+
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="gymkanappApp.equipo.home.refreshListLabel">Refrescar lista</span>
@@ -24,7 +29,30 @@
 
   <jhi-alert></jhi-alert>
 
-  <jhi-filter [filters]="filters"></jhi-filter>
+  <div class="busqueda-avanzada" *ngIf="this.activeAdvancedSearch">
+    <div class="row">
+      <h4 class="col-12 col-md-12 title">Búsqueda avanzada</h4>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-3">
+        <label class="form-label" jhiTranslate="gymkanappApp.voluntario.dni" for="field_dni">Identificador</label>
+        <input [(ngModel)]="identificadorFilter" type="text" class="form-control" name="dni" id="field_dni" data-cy="dni" />
+      </div>
+
+      <div class="col-12 col-md-9">
+        <label class="form-label" jhiTranslate="gymkanappApp.voluntario.nombre" for="field_nombre">Nombre</label>
+        <input [(ngModel)]="nombreFilter" type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" />
+      </div>
+
+    </div>
+
+    <div class="botones d-flex justify-content-end">
+      <button (click)="clearAdvancedSearch()" class="btn btn-secondary">Limpiar</button>
+      <button (click)="advancedSearch()" class="btn btn-primary">Buscar</button>
+    </div>
+
+  </div>
 
   <div class="alert alert-warning" id="no-result" *ngIf="equipos?.length === 0">
     <span jhiTranslate="gymkanappApp.equipo.home.notFound">Ningún Equipos encontrado</span>
