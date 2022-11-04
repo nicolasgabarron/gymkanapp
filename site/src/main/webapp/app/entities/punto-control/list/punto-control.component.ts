@@ -15,6 +15,7 @@ import { FilterOptions, IFilterOptions, IFilterOption } from 'app/shared/filter/
 @Component({
   selector: 'jhi-punto-control',
   templateUrl: './punto-control.component.html',
+  styleUrls: ['./punto-control.component.scss']
 })
 export class PuntoControlComponent implements OnInit {
   puntoControls?: IPuntoControl[];
