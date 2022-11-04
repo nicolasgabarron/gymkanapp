@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="voluntario">
+      <h2 data-cy="voluntarioDetailsHeading"><span jhiTranslate="gymkanappApp.voluntario.detail.title">Voluntario</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ voluntario.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gymkanappApp.voluntario.dni">Dni</span></dt>
+        <dd>
+          <span>{{ voluntario.dni }}</span>
+        </dd>
+        <dt><span jhiTranslate="gymkanappApp.voluntario.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ voluntario.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="gymkanappApp.voluntario.apellidos">Apellidos</span></dt>
+        <dd>
+          <span>{{ voluntario.apellidos }}</span>
+        </dd>
+        <dt><span jhiTranslate="gymkanappApp.voluntario.fechaNacimiento">Fecha Nacimiento</span></dt>
+        <dd>
+          <span>{{ voluntario.fechaNacimiento | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="gymkanappApp.voluntario.puntoControl">Punto Control</span></dt>
+        <dd>
+          <div *ngIf="voluntario.puntoControl">
+            <a [routerLink]="['/punto-control', voluntario.puntoControl.id, 'view']">{{ voluntario.puntoControl.nombre }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/voluntario', voluntario.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

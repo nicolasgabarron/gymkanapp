@@ -1,0 +1,29 @@
+{
+  "gymkanappApp": {
+    "voluntario": {
+      "home": {
+        "title": "Voluntarios",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Dar de alta un voluntario",
+        "createOrEditLabel": "Crear o editar Voluntario",
+        "notFound": "Ningún Voluntarios encontrado"
+      },
+      "created": "Un nuevo Voluntario ha sido creado con el identificador {{ param }}",
+      "updated": "Un Voluntario ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Voluntario ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Voluntario {{ id }}?"
+      },
+      "detail": {
+        "title": "Voluntario"
+      },
+      "id": "ID",
+      "dni": "D.N.I.",
+      "nombre": "Nombre",
+      "apellidos": "Apellidos",
+      "fechaNacimiento": "Fecha de nacimiento",
+      "usuarioApp": "Usuario App",
+      "puntoControl": "Punto de control"
+    }
+  }
+}

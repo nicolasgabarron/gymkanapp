@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-md-3">
+    <img src="../../content/images/cartel_gymkana.jpeg" style="width: 100%" alt="null">
+  </div>
+
+  <div class="col-md-9">
+    <h2 class="display-5"><span jhiTranslate="home.title">III Gymkana Fotográfica Solidaria Ciudad De Murcia 2022</span></h2>
+
+    <p class="lead" jhiTranslate="home.subtitle">Esta es su página de inicio</p>
+
+    <div [ngSwitch]="account !== null">
+      <div class="alert alert-success" *ngSwitchCase="true">
+        <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message" [translateValues]="{ username: account.login }"
+          >Está conectado como "{{ account.login }}".</span
+        >
+      </div>
+
+      <div class="alert alert-warning" *ngSwitchCase="false">
+        <span jhiTranslate="global.messages.info.authenticated.prefix">Si desea </span>
+        <a class="alert-link" (click)="login()" jhiTranslate="global.messages.info.authenticated.link">iniciar sesión</a
+        ><span> clickeé aquí</span>
+      </div>
+    </div>
+
+    <p jhiTranslate="home.linkTitle">Enlaces de interés:</p>
+
+    <ul>
+      <li>
+        <a href="https://www.fundacionsoycomotu.org/" target="_blank" rel="noopener noreferrer" jhiTranslate="home.link.fundacion"
+          >Página de la Fundación SoyComoTu</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://www.fundacionsoycomotu.org/iii-gymkana-fotografica-solidaria-ciudad-de-murcia-2022-enfoca-sin-prejuicios/"
+          target="_blank"
+          rel="noopener noreferrer"
+          jhiTranslate="home.link.evento"
+          >Página de la Dra. Nieves Martínez-Hidalgo</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://nievesmhidalgo.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          jhiTranslate="home.link.nieves"
+          >Página de Nicolás Gabarrón Blaya - Desarrollador</a
+        >
+      </li>
+      <li>
+        <a href="https://nicogbdev.com/" target="_blank" rel="noopener noreferrer" jhiTranslate="home.link.nicogbdev"
+          >Instagram de Nicolás Gabarrón Blaya - Desarrollador</a
+        >
+      </li>
+      <li>
+        <a href="https://www.instagram.com/nicogbdev/" target="_blank" rel="noopener noreferrer" jhiTranslate="home.link.nicogbdevig"
+          >contacto @jhipster en Twitter</a
+        >
+      </li>
+    </ul>
+
+    <p>
+      <span jhiTranslate="home.like">Si te gusta este proyecto, puedes apoyar otros tantos que tengo en</span>
+      <a href="https://github.com/nicolasgabarron" target="_blank" rel="noopener noreferrer" jhiTranslate="home.github"
+        >GitHub</a
+      >!
+    </p>
+  </div>
+</div>

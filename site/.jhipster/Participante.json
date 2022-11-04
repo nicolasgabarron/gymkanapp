@@ -1,0 +1,45 @@
+{
+  "applications": "*",
+  "changelogDate": "20221031084348",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "participante",
+  "fields": [
+    {
+      "fieldName": "dni",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nombre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "apellidos",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaNacimiento",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Participante",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "ownerSide": true,
+      "relationshipName": "usuarioApp",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "equipo",
+      "otherEntityRelationshipName": "participantes",
+      "relationshipName": "equipo",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,166 @@
+<div>
+  <h2 id="page-heading" data-cy="PuntoControlHeading">
+    <span jhiTranslate="gymkanappApp.puntoControl.home.title">Punto Controls</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-warning me-2" (click)="this.activeAdvancedSearch = !this.activeAdvancedSearch" [disabled]="isLoading">
+        <fa-icon icon="magnifying-glass"></fa-icon>
+        <span jhiTranslate="busquedaAvanzada">Búsqueda avanzada</span>
+      </button>
+
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gymkanappApp.puntoControl.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-punto-control"
+        [routerLink]="['/punto-control/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gymkanappApp.puntoControl.home.createLabel"> Crear nuevo Punto Control </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="busqueda-avanzada" *ngIf="this.activeAdvancedSearch">
+    <div class="row">
+      <h4 class="col-12 col-md-12 title">Búsqueda avanzada</h4>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-2">
+        <label class="form-label" for="field_dni">Identificador</label>
+        <input [(ngModel)]="identificadorFilter" type="text" class="form-control" name="dni" id="field_dni" data-cy="dni" />
+      </div>
+
+      <div class="col-12 col-md-5">
+        <label class="form-label" for="field_nombre">Nombre</label>
+        <input [(ngModel)]="nombreFilter" type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" />
+      </div>
+
+      <div class="col-12 col-md-5">
+        <label class="form-label" for="field_nombre">Dirección</label>
+        <input [(ngModel)]="direccionFilter" type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" />
+      </div>
+    </div>
+
+    <div class="botones d-flex justify-content-end">
+      <button (click)="clearAdvancedSearch()" class="btn btn-secondary">Limpiar</button>
+      <button (click)="advancedSearch()" class="btn btn-primary">Buscar</button>
+    </div>
+
+  </div>
+
+
+  <div class="alert alert-warning" id="no-result" *ngIf="puntoControls?.length === 0">
+    <span jhiTranslate="gymkanappApp.puntoControl.home.notFound">Ningún Punto Controls encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="puntoControls && puntoControls.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="identificador">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.puntoControl.identificador">Identificador</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="orden">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.puntoControl.orden">Orden</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="nombre">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.puntoControl.nombre">Nombre</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="direccion">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.puntoControl.direccion">Direccion</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let puntoControl of puntoControls; trackBy: trackId" data-cy="entityTable">
+          <td>{{ puntoControl.identificador }}</td>
+          <td>{{ puntoControl.orden }}</td>
+          <td>{{ puntoControl.nombre }}</td>
+          <td>{{ puntoControl.direccion }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/voluntario']"
+                [queryParams]="{ 'filter[puntoControlId.in]': puntoControl.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  >Ver voluntarios</span
+                >
+              </button>
+              <button
+                type="submit"
+                [routerLink]="['/punto-control', puntoControl.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/punto-control', puntoControl.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(puntoControl)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="puntoControls && puntoControls.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

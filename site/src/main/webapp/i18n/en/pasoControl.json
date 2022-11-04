@@ -1,0 +1,27 @@
+{
+  "gymkanappApp": {
+    "pasoControl": {
+      "home": {
+        "title": "Control de paso",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Nueva entrada",
+        "createOrEditLabel": "Create or edit a Paso Control",
+        "notFound": "No Paso Controls found"
+      },
+      "created": "A new Paso Control is created with identifier {{ param }}",
+      "updated": "A Paso Control is updated with identifier {{ param }}",
+      "deleted": "A Paso Control is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Paso Control {{ id }}?"
+      },
+      "detail": {
+        "title": "Detalle del paso"
+      },
+      "id": "ID",
+      "fechaHora": "Fecha y hora",
+      "equipo": "Equipo",
+      "puntoControl": "Punto de control",
+      "validadoPor": "Validado por"
+    }
+  }
+}

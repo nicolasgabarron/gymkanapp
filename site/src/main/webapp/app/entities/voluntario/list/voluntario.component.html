@@ -1,0 +1,161 @@
+<div>
+  <h2 id="page-heading" data-cy="VoluntarioHeading">
+    <span jhiTranslate="gymkanappApp.voluntario.home.title">Voluntarios</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-warning me-2" (click)="this.activeAdvancedSearch = !this.activeAdvancedSearch" [disabled]="isLoading">
+        <fa-icon icon="magnifying-glass"></fa-icon>
+        <span jhiTranslate="busquedaAvanzada">Búsqueda avanzada</span>
+      </button>
+
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gymkanappApp.voluntario.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-voluntario"
+        [routerLink]="['/voluntario/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gymkanappApp.voluntario.home.createLabel"> Dar de alta un voluntario </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="busqueda-avanzada" *ngIf="this.activeAdvancedSearch">
+    <div class="row">
+      <h4 class="col-12 col-md-12 title">Búsqueda avanzada</h4>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-2">
+        <label class="form-label" jhiTranslate="gymkanappApp.voluntario.dni" for="field_dni">Dni</label>
+        <input [(ngModel)]="dniFilter" type="text" class="form-control" name="dni" id="field_dni" data-cy="dni" />
+      </div>
+
+      <div class="col-12 col-md-3">
+        <label class="form-label" jhiTranslate="gymkanappApp.voluntario.nombre" for="field_nombre">Nombre</label>
+        <input [(ngModel)]="nombreFilter" type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" />
+      </div>
+
+      <div class="col-12 col-md-3">
+        <label class="form-label" jhiTranslate="gymkanappApp.voluntario.apellidos" for="field_apellidos">Apellidos</label>
+        <input [(ngModel)]="apellidosFilter" type="text" class="form-control" name="apellidos" id="field_apellidos" data-cy="apellidos" />
+      </div>
+
+      <div class="col-12 col-md-4">
+        <label class="form-label" jhiTranslate="gymkanappApp.voluntario.puntoControl" for="field_puntoControl">Punto Control</label>
+        <p-autoComplete [(ngModel)]="puntoControlFilter" [suggestions]="puntoControlsSharedCollection" (completeMethod)="searchPuntoControl($event)" [dropdown]="true" field="nombre"></p-autoComplete>
+      </div>
+    </div>
+
+    <div class="botones d-flex justify-content-end">
+      <button (click)="clearAdvancedSearch()" class="btn btn-secondary">Limpiar</button>
+      <button (click)="advancedSearch()" class="btn btn-primary">Buscar</button>
+    </div>
+
+  </div>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="voluntarios?.length === 0">
+    <span jhiTranslate="gymkanappApp.voluntario.home.notFound">Ningún Voluntarios encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="voluntarios && voluntarios.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="dni">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.voluntario.dni">Dni</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="nombre">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.voluntario.nombre">Nombre</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="apellidos">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.voluntario.apellidos">Apellidos</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="puntoControl.id">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.voluntario.puntoControl">Punto Control</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let voluntario of voluntarios; trackBy: trackId" data-cy="entityTable">
+          <td>{{ voluntario.dni }}</td>
+          <td>{{ voluntario.nombre }}</td>
+          <td>{{ voluntario.apellidos }}</td>
+          <td>
+            <div *ngIf="voluntario.puntoControl">
+              <a [routerLink]="['/punto-control', voluntario.puntoControl.id, 'view']">{{ voluntario.puntoControl.nombre }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/voluntario', voluntario.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/voluntario', voluntario.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(voluntario)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="voluntarios && voluntarios.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

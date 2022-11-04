@@ -1,0 +1,31 @@
+{
+  "applications": "*",
+  "changelogDate": "20221031084324",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "equipo",
+  "fields": [
+    {
+      "fieldName": "identificador",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nombre",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Equipo",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "participante",
+      "otherEntityRelationshipName": "equipo",
+      "relationshipName": "participantes",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

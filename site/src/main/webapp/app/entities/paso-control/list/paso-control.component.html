@@ -1,0 +1,170 @@
+<div>
+  <h2 id="page-heading" data-cy="PasoControlHeading">
+    <span jhiTranslate="gymkanappApp.pasoControl.home.title">Paso Controls</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-success me-2" (click)="exportPdf()" [disabled]="isLoading">
+        <fa-icon icon="file-pdf"></fa-icon>
+        <span>Exportar a PDF</span>
+      </button>
+
+      <button class="btn btn-warning me-2" (click)="this.activeAdvancedSearch = !this.activeAdvancedSearch" [disabled]="isLoading">
+        <fa-icon icon="magnifying-glass"></fa-icon>
+        <span jhiTranslate="busquedaAvanzada">Búsqueda avanzada</span>
+      </button>
+
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gymkanappApp.pasoControl.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-paso-control"
+        [routerLink]="['/paso-control/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gymkanappApp.pasoControl.home.createLabel"> Nueva entrada </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="busqueda-avanzada" *ngIf="this.activeAdvancedSearch">
+    <div class="row">
+      <h4 class="col-12 col-md-12 title">Búsqueda avanzada</h4>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <label class="form-label" for="field_puntoControl">Equipo</label>
+        <p-autoComplete [(ngModel)]="equipoFilter" [suggestions]="equiposSharedCollection" (completeMethod)="searchEquipo($event)" [dropdown]="true" field="nombre">
+          <ng-template let-equipo pTemplate="item">
+            <div class="ui-helper-clearfix">
+              {{equipo.identificador}}: {{equipo.nombre}}
+            </div>
+          </ng-template>
+        </p-autoComplete>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label class="form-label" for="field_puntoControl">Punto de control</label>
+        <p-autoComplete [(ngModel)]="puntoControlFilter" [suggestions]="puntoControlsSharedCollection" (completeMethod)="searchPuntoControl($event)" [dropdown]="true" field="nombre"></p-autoComplete>
+      </div>
+    </div>
+
+    <div class="botones d-flex justify-content-end">
+      <button (click)="clearAdvancedSearch()" class="btn btn-secondary">Limpiar</button>
+      <button (click)="advancedSearch()" class="btn btn-primary">Buscar</button>
+    </div>
+
+  </div>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="pasoControls?.length === 0">
+    <span jhiTranslate="gymkanappApp.pasoControl.home.notFound">Ningún Paso Controls encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="pasoControls && pasoControls.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="fechaHora">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.pasoControl.fechaHora">Fecha Hora</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="equipo.id">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.pasoControl.equipo">Equipo</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="puntoControl.id">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.pasoControl.puntoControl">Punto Control</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="validadoPor.id">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.pasoControl.validadoPor">Validado Por</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pasoControl of pasoControls; trackBy: trackId" data-cy="entityTable">
+          <td>{{ pasoControl.fechaHora | formatMediumDatetime }}</td>
+          <td>
+            <div *ngIf="pasoControl.equipo">
+              <a [routerLink]="['/equipo', pasoControl.equipo.id, 'view']">{{ pasoControl.equipo.identificador }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="pasoControl.puntoControl">
+              <a [routerLink]="['/punto-control', pasoControl.puntoControl.id, 'view']">{{ pasoControl.puntoControl.nombre }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="pasoControl.validadoPor">
+              <a [routerLink]="['/voluntario', pasoControl.validadoPor.id, 'view']">{{ pasoControl.validadoPor.dni }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/paso-control', pasoControl.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/paso-control', pasoControl.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(pasoControl)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="pasoControls && pasoControls.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

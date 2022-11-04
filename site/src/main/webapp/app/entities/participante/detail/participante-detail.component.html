@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="participante">
+      <h2 data-cy="participanteDetailsHeading"><span jhiTranslate="gymkanappApp.participante.detail.title">Participante</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ participante.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gymkanappApp.participante.dni">Dni</span></dt>
+        <dd>
+          <span>{{ participante.dni }}</span>
+        </dd>
+        <dt><span jhiTranslate="gymkanappApp.participante.nombre">Nombre</span></dt>
+        <dd>
+          <span>{{ participante.nombre }}</span>
+        </dd>
+        <dt><span jhiTranslate="gymkanappApp.participante.apellidos">Apellidos</span></dt>
+        <dd>
+          <span>{{ participante.apellidos }}</span>
+        </dd>
+        <dt><span jhiTranslate="gymkanappApp.participante.fechaNacimiento">Fecha Nacimiento</span></dt>
+        <dd>
+          <span>{{ participante.fechaNacimiento | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="gymkanappApp.participante.equipo">Equipo</span></dt>
+        <dd>
+          <div *ngIf="participante.equipo">
+            <a [routerLink]="['/equipo', participante.equipo.id, 'view']">{{ participante.equipo.identificador }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+      </button>
+
+      <button type="button" [routerLink]="['/participante', participante.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>
