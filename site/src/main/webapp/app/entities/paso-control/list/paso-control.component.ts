@@ -1,3 +1,4 @@
+import { DownloadPdfComponent } from './../download-pdf/download-pdf.component';
 import { EquipoService } from './../../equipo/service/equipo.service';
 import { PuntoControlService } from './../../punto-control/service/punto-control.service';
 import { IPuntoControl } from './../../punto-control/punto-control.model';
@@ -154,6 +155,10 @@ export class PasoControlComponent implements OnInit {
     this.filters.clear();
     this.equipoFilter = undefined;
     this.puntoControlFilter = undefined;
+  }
+
+  exportPdf(): void{
+    this.modalService.open(DownloadPdfComponent, {size: 'lg', backdrop: 'static'});
   }
 
   protected loadFromBackendWithRouteInformations(): Observable<EntityArrayResponseType> {
