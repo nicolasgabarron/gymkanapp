@@ -11,7 +11,7 @@
 
         <div class="col-12 col-md-6 form-group">
           <label>Equipo</label>
-          <p-autoComplete class="form-control" [(ngModel)]="equipoForm" [suggestions]="equiposSharedCollection"
+          <p-autoComplete [(ngModel)]="equipoForm" [suggestions]="equiposSharedCollection"
             (completeMethod)="searchEquipos($event)" [minLength]="2" [delay]="500" field="nombre" [dropdown]="true">
           </p-autoComplete>
         </div>
@@ -20,7 +20,7 @@
 
         <div class="col-12 col-md-6 form-group">
           <label>Punto de control</label>
-          <p-autoComplete class="form-control" [(ngModel)]="puntoControlForm" [suggestions]="puntosControlSharedCollection"
+          <p-autoComplete [(ngModel)]="puntoControlForm" [suggestions]="puntosControlSharedCollection"
             (completeMethod)="searchPuntosControl($event)" field="nombre" [dropdown]="true"></p-autoComplete>
         </div>
       </div>
