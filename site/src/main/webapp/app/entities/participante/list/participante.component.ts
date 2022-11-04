@@ -1,7 +1,9 @@
+import { EquipoService } from './../../equipo/service/equipo.service';
+import { IEquipo } from './../../equipo/equipo.model';
 import { Component, OnInit } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
-import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
+import { combineLatest, filter, map, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IParticipante } from '../participante.model';
@@ -15,6 +17,7 @@ import { FilterOptions, IFilterOptions, IFilterOption } from 'app/shared/filter/
 @Component({
   selector: 'jhi-participante',
   templateUrl: './participante.component.html',
+  styleUrls: ['./participante.component.scss']
 })
 export class ParticipanteComponent implements OnInit {
   participantes?: IParticipante[];
@@ -24,6 +27,15 @@ export class ParticipanteComponent implements OnInit {
   ascending = true;
   filters: IFilterOptions = new FilterOptions();
 
+  // Búsqueda avanzada
+  activeAdvancedSearch = false;
+  dniFilter?: string;
+  nombreFilter?: string;
+  apellidosFilter?: string;
+  equipoFilter?: IEquipo;
+  equiposSharedCollection: IEquipo[] = [];
+
+
   itemsPerPage = ITEMS_PER_PAGE;
   totalItems = 0;
   page = 1;
@@ -31,6 +43,7 @@ export class ParticipanteComponent implements OnInit {
   constructor(
     protected participanteService: ParticipanteService,
     protected activatedRoute: ActivatedRoute,
+    protected equipoService: EquipoService,
     public router: Router,
     protected modalService: NgbModal
   ) {}
@@ -73,6 +86,79 @@ export class ParticipanteComponent implements OnInit {
 
   navigateToPage(page = this.page): void {
     this.handleNavigation(page, this.predicate, this.ascending, this.filters.filterOptions);
+  }
+
+  searchEquipo(event: any): void{
+    const IdentificadorNombreEquipo = event.query;
+
+    const queryIdentificadorNombre: any = {
+      sort:['nombre,asc']
+    };
+
+    if(IdentificadorNombreEquipo){
+      queryIdentificadorNombre["identificador.contains"] = IdentificadorNombreEquipo;
+      queryIdentificadorNombre["nombre.contains"] = IdentificadorNombreEquipo;
+    }
+
+    this.equipoService.query(queryIdentificadorNombre)
+    .pipe(map((res: HttpResponse<IEquipo[]>) => res.body ?? []))
+    .subscribe((equipos: IEquipo[]) => (this.equiposSharedCollection = equipos));
+  }
+
+  advancedSearch(): void{
+    // Comprobaciones de qué datos están cambiados
+    if(this.dniFilter){
+      const dniFilterOption = this.filters.getFilterOptionByName('dni.contains');
+
+      if(dniFilterOption){
+        this.filters.removeFilter('dni.contains');
+      }
+
+      this.filters.addFilter('dni.contains', ...[this.dniFilter]);
+    }
+
+    if(this.nombreFilter){
+      const nombreFilterOption = this.filters.getFilterOptionByName('nombre.contains');
+
+      if(nombreFilterOption){
+        this.filters.removeFilter('nombre.contains');
+      }
+
+      this.filters.addFilter('nombre.contains', ...[this.nombreFilter]);
+    }
+
+    if(this.apellidosFilter){
+      const apellidosFilterOption = this.filters.getFilterOptionByName('apellidos.contains');
+
+      if(apellidosFilterOption){
+        this.filters.removeFilter('apellidos.contains');
+      }
+
+      this.filters.addFilter('apellidos.contains', ...[this.apellidosFilter]);
+    }
+
+    if(this.equipoFilter){
+      const equipoFilterOption = this.filters.getFilterOptionByName('equipoId.in');
+
+      if(equipoFilterOption){
+        this.filters.getFilterOptionByName('equipoId.in');
+      }
+
+      this.filters.addFilter('equipoId.in', ...[this.equipoFilter.id.toString()]);
+    }
+
+    // Si todos los campos están vacíos y el usuario da a buscar, se hace un clear.
+    if(!this.dniFilter && !this.nombreFilter && !this.apellidosFilter && !this.equipoFilter){
+      this.clearAdvancedSearch();
+    }
+  }
+
+  clearAdvancedSearch(): void{
+    this.filters.clear();
+    this.dniFilter = '';
+    this.nombreFilter = '';
+    this.apellidosFilter = '';
+    this.equipoFilter = undefined;
   }
 
   protected loadFromBackendWithRouteInformations(): Observable<EntityArrayResponseType> {
