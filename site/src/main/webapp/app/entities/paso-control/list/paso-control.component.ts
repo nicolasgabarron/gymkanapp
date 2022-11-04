@@ -1,7 +1,11 @@
+import { EquipoService } from './../../equipo/service/equipo.service';
+import { PuntoControlService } from './../../punto-control/service/punto-control.service';
+import { IPuntoControl } from './../../punto-control/punto-control.model';
+import { IEquipo } from './../../equipo/equipo.model';
 import { Component, OnInit } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
-import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
+import { combineLatest, filter, map, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IPasoControl } from '../paso-control.model';
@@ -15,6 +19,7 @@ import { FilterOptions, IFilterOptions, IFilterOption } from 'app/shared/filter/
 @Component({
   selector: 'jhi-paso-control',
   templateUrl: './paso-control.component.html',
+  styleUrls: ['./paso-control.component.scss']
 })
 export class PasoControlComponent implements OnInit {
   pasoControls?: IPasoControl[];
@@ -24,6 +29,14 @@ export class PasoControlComponent implements OnInit {
   ascending = true;
   filters: IFilterOptions = new FilterOptions();
 
+  // Búsqueda avanzada
+  activeAdvancedSearch = false;
+  equipoFilter?: IEquipo;
+  equiposSharedCollection: IEquipo[] = [];
+  puntoControlFilter?: IPuntoControl;
+  puntoControlsSharedCollection: IPuntoControl[] = [];
+
+
   itemsPerPage = ITEMS_PER_PAGE;
   totalItems = 0;
   page = 1;
@@ -31,6 +44,8 @@ export class PasoControlComponent implements OnInit {
   constructor(
     protected pasoControlService: PasoControlService,
     protected activatedRoute: ActivatedRoute,
+    protected puntoControlService: PuntoControlService,
+    protected equipoService: EquipoService,
     public router: Router,
     protected modalService: NgbModal
   ) {}
@@ -73,6 +88,72 @@ export class PasoControlComponent implements OnInit {
 
   navigateToPage(page = this.page): void {
     this.handleNavigation(page, this.predicate, this.ascending, this.filters.filterOptions);
+  }
+
+  searchEquipo(event: any): void {
+    const IdentificadorNombreEquipo = event.query;
+
+    const queryIdentificadorNombre: any = {
+      sort:['nombre,asc']
+    };
+
+    if(IdentificadorNombreEquipo){
+      queryIdentificadorNombre["identificador.contains"] = IdentificadorNombreEquipo;
+      queryIdentificadorNombre["nombre.contains"] = IdentificadorNombreEquipo;
+    }
+
+    this.equipoService.query(queryIdentificadorNombre)
+    .pipe(map((res: HttpResponse<IEquipo[]>) => res.body ?? []))
+    .subscribe((equipos: IEquipo[]) => (this.equiposSharedCollection = equipos));
+  }
+
+  searchPuntoControl(event: any): void {
+    const nombrePuntoControl = event.query;
+
+    const queryPControlObject: any = {
+      sort:['nombre,asc']
+    };
+
+    if(nombrePuntoControl){
+      queryPControlObject["nombre.contains"] = nombrePuntoControl;
+    }
+
+    this.puntoControlService.query(queryPControlObject)
+    .pipe(map((res: HttpResponse<IPuntoControl[]>) => res.body ?? []))
+    .subscribe((puntos: IPuntoControl[]) => (this.puntoControlsSharedCollection = puntos));
+  }
+
+  advancedSearch(): void {
+    if(this.equipoFilter){
+      const equipoFilterOption = this.filters.getFilterOptionByName('equipoId.in');
+
+      if(equipoFilterOption){
+        this.filters.removeFilter('equipoId.in');
+      }
+
+      this.filters.addFilter('equipoId.in', ...[this.equipoFilter.id.toString()]);
+    }
+
+    if(this.puntoControlFilter){
+      const puntoControlFilterOption = this.filters.getFilterOptionByName('puntoControlId.in');
+
+      if(puntoControlFilterOption){
+        this.filters.removeFilter('puntoControlId.in');
+      }
+
+      this.filters.addFilter('puntoControlId.in', ...[this.puntoControlFilter.id.toString()]);
+    }
+
+    // Si todos los campos están vacíos y el usuario da a buscar, se hace un clear.
+    if(!this.equipoFilter && !this.puntoControlFilter){
+      this.clearAdvancedSearch();
+    }
+  }
+
+  clearAdvancedSearch(): void {
+    this.filters.clear();
+    this.equipoFilter = undefined;
+    this.puntoControlFilter = undefined;
   }
 
   protected loadFromBackendWithRouteInformations(): Observable<EntityArrayResponseType> {

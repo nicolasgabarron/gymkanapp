@@ -3,6 +3,11 @@
     <span jhiTranslate="gymkanappApp.pasoControl.home.title">Paso Controls</span>
 
     <div class="d-flex justify-content-end">
+      <button class="btn btn-warning me-2" (click)="this.activeAdvancedSearch = !this.activeAdvancedSearch" [disabled]="isLoading">
+        <fa-icon icon="magnifying-glass"></fa-icon>
+        <span jhiTranslate="busquedaAvanzada">Búsqueda avanzada</span>
+      </button>
+
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="gymkanappApp.pasoControl.home.refreshListLabel">Refrescar lista</span>
@@ -24,7 +29,35 @@
 
   <jhi-alert></jhi-alert>
 
-  <jhi-filter [filters]="filters"></jhi-filter>
+  <div class="busqueda-avanzada" *ngIf="this.activeAdvancedSearch">
+    <div class="row">
+      <h4 class="col-12 col-md-12 title">Búsqueda avanzada</h4>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <label class="form-label" for="field_puntoControl">Equipo</label>
+        <p-autoComplete [(ngModel)]="equipoFilter" [suggestions]="equiposSharedCollection" (completeMethod)="searchEquipo($event)" [dropdown]="true" field="nombre">
+          <ng-template let-equipo pTemplate="item">
+            <div class="ui-helper-clearfix">
+              {{equipo.identificador}}: {{equipo.nombre}}
+            </div>
+          </ng-template>
+        </p-autoComplete>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label class="form-label" for="field_puntoControl">Punto de control</label>
+        <p-autoComplete [(ngModel)]="puntoControlFilter" [suggestions]="puntoControlsSharedCollection" (completeMethod)="searchPuntoControl($event)" [dropdown]="true" field="nombre"></p-autoComplete>
+      </div>
+    </div>
+
+    <div class="botones d-flex justify-content-end">
+      <button (click)="clearAdvancedSearch()" class="btn btn-secondary">Limpiar</button>
+      <button (click)="advancedSearch()" class="btn btn-primary">Buscar</button>
+    </div>
+
+  </div>
 
   <div class="alert alert-warning" id="no-result" *ngIf="pasoControls?.length === 0">
     <span jhiTranslate="gymkanappApp.pasoControl.home.notFound">Ningún Paso Controls encontrado</span>
