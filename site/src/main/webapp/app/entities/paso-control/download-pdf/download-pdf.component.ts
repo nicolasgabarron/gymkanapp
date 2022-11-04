@@ -1,3 +1,6 @@
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { IPuntoControl } from './../../punto-control/punto-control.model';
+import { IEquipo } from './../../equipo/equipo.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +10,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DownloadPdfComponent implements OnInit {
 
-  constructor() { }
+  // Propiedades
+  equipoForm?: IEquipo;
+  equiposSharedCollection: IEquipo[] = [];
+  puntoControlForm?: IPuntoControl;
+  puntosControlSharedCollection: IPuntoControl[] = [];
+
+  constructor(
+    protected activeModal: NgbActiveModal
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  // Funciones
+  searchEquipos(event: any): void{
+    //
+  }
+
+  searchPuntosControl(event: any): void {
+    //
+  }
+
+  cancel(): void{
+    this.activeModal.close();
+  }
+
+  download(): void{
+    //
   }
 
 }
