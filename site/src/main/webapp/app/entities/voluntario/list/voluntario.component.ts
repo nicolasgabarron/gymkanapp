@@ -153,6 +153,10 @@ export class VoluntarioComponent implements OnInit {
       this.filters.addFilter('puntoControlId.in', ...[this.puntoControlFilter.id.toString()]);
     }
 
+        // Si todos los campos están vacíos y el usuario da a buscar, se hace un clear.
+        if(!this.dniFilter && !this.nombreFilter && !this.apellidosFilter && !this.puntoControlFilter){
+          this.clearAdvancedSearch();
+        }
   }
 
   protected loadFromBackendWithRouteInformations(): Observable<EntityArrayResponseType> {
