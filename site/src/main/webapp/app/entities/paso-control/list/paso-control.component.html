@@ -36,7 +36,7 @@
 
     <div class="row">
       <div class="col-12 col-md-6">
-        <label class="form-label" jhiTranslate="gymkanappApp.voluntario.puntoControl" for="field_puntoControl">Equipo</label>
+        <label class="form-label" for="field_puntoControl">Equipo</label>
         <p-autoComplete [(ngModel)]="equipoFilter" [suggestions]="equiposSharedCollection" (completeMethod)="searchEquipo($event)" [dropdown]="true" field="nombre">
           <ng-template let-equipo pTemplate="item">
             <div class="ui-helper-clearfix">
@@ -47,7 +47,7 @@
       </div>
 
       <div class="col-12 col-md-6">
-        <label class="form-label" jhiTranslate="gymkanappApp.voluntario.puntoControl" for="field_puntoControl">Punto Control</label>
+        <label class="form-label" for="field_puntoControl">Punto de control</label>
         <p-autoComplete [(ngModel)]="puntoControlFilter" [suggestions]="puntoControlsSharedCollection" (completeMethod)="searchPuntoControl($event)" [dropdown]="true" field="nombre"></p-autoComplete>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { EquipoService } from './../../equipo/service/equipo.service';
 import { PuntoControlService } from './../../punto-control/service/punto-control.service';
 import { IPuntoControl } from './../../punto-control/punto-control.model';
 import { IEquipo } from './../../equipo/equipo.model';
@@ -44,6 +45,7 @@ export class PasoControlComponent implements OnInit {
     protected pasoControlService: PasoControlService,
     protected activatedRoute: ActivatedRoute,
     protected puntoControlService: PuntoControlService,
+    protected equipoService: EquipoService,
     public router: Router,
     protected modalService: NgbModal
   ) {}
@@ -89,11 +91,36 @@ export class PasoControlComponent implements OnInit {
   }
 
   searchEquipo(event: any): void {
-    //
+    const IdentificadorNombreEquipo = event.query;
+
+    const queryIdentificadorNombre: any = {
+      sort:['nombre,asc']
+    };
+
+    if(IdentificadorNombreEquipo){
+      queryIdentificadorNombre["identificador.contains"] = IdentificadorNombreEquipo;
+      queryIdentificadorNombre["nombre.contains"] = IdentificadorNombreEquipo;
+    }
+
+    this.equipoService.query(queryIdentificadorNombre)
+    .pipe(map((res: HttpResponse<IEquipo[]>) => res.body ?? []))
+    .subscribe((equipos: IEquipo[]) => (this.equiposSharedCollection = equipos));
   }
 
   searchPuntoControl(event: any): void {
-    //
+    const nombrePuntoControl = event.query;
+
+    const queryPControlObject: any = {
+      sort:['nombre,asc']
+    };
+
+    if(nombrePuntoControl){
+      queryPControlObject["nombre.contains"] = nombrePuntoControl;
+    }
+
+    this.puntoControlService.query(queryPControlObject)
+    .pipe(map((res: HttpResponse<IPuntoControl[]>) => res.body ?? []))
+    .subscribe((puntos: IPuntoControl[]) => (this.puntoControlsSharedCollection = puntos));
   }
 
   advancedSearch(): void {
