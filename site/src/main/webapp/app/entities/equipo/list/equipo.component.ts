@@ -15,6 +15,7 @@ import { FilterOptions, IFilterOptions, IFilterOption } from 'app/shared/filter/
 @Component({
   selector: 'jhi-equipo',
   templateUrl: './equipo.component.html',
+  styleUrls: ['./equipo.component.scss']
 })
 export class EquipoComponent implements OnInit {
   equipos?: IEquipo[];
