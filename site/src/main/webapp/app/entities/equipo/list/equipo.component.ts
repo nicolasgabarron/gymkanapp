@@ -15,6 +15,7 @@ import { FilterOptions, IFilterOptions, IFilterOption } from 'app/shared/filter/
 @Component({
   selector: 'jhi-equipo',
   templateUrl: './equipo.component.html',
+  styleUrls: ['./equipo.component.scss']
 })
 export class EquipoComponent implements OnInit {
   equipos?: IEquipo[];
@@ -23,6 +24,11 @@ export class EquipoComponent implements OnInit {
   predicate = 'id';
   ascending = true;
   filters: IFilterOptions = new FilterOptions();
+
+  // Búsqueda avanzada
+  activeAdvancedSearch = false;
+  identificadorFilter?: string;
+  nombreFilter?: string;
 
   itemsPerPage = ITEMS_PER_PAGE;
   totalItems = 0;
@@ -33,7 +39,7 @@ export class EquipoComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     public router: Router,
     protected modalService: NgbModal
-  ) {}
+  ) { }
 
   trackId = (_index: number, item: IEquipo): number => this.equipoService.getEquipoIdentifier(item);
 
@@ -73,6 +79,40 @@ export class EquipoComponent implements OnInit {
 
   navigateToPage(page = this.page): void {
     this.handleNavigation(page, this.predicate, this.ascending, this.filters.filterOptions);
+  }
+
+  advancedSearch(): void {
+    // Comprobaciones de qué datos están cambiados
+    if (this.identificadorFilter) {
+      const identificadorFilterOption = this.filters.getFilterOptionByName('identificador.contains');
+
+      if (identificadorFilterOption) {
+        this.filters.removeFilter('identificador.contains');
+      }
+
+      this.filters.addFilter('identificador.contains', ...[this.identificadorFilter]);
+    }
+
+    if (this.nombreFilter) {
+      const nombreFilterOption = this.filters.getFilterOptionByName('nombre.contains');
+
+      if (nombreFilterOption) {
+        this.filters.removeFilter('nombre.contains');
+      }
+
+      this.filters.addFilter('nombre.contains', ...[this.nombreFilter]);
+    }
+
+    // Si todos los campos están vacíos y el usuario da a buscar, se hace un clear.
+    if (!this.identificadorFilter && !this.nombreFilter) {
+      this.clearAdvancedSearch();
+    }
+  }
+
+  clearAdvancedSearch(): void {
+    this.filters.clear();
+    this.identificadorFilter = '';
+    this.nombreFilter = '';
   }
 
   protected loadFromBackendWithRouteInformations(): Observable<EntityArrayResponseType> {
