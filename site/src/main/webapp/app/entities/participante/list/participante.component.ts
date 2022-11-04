@@ -141,7 +141,7 @@ export class ParticipanteComponent implements OnInit {
       const equipoFilterOption = this.filters.getFilterOptionByName('equipoId.in');
 
       if(equipoFilterOption){
-        this.filters.getFilterOptionByName('equipoId.in');
+        this.filters.removeFilter('equipoId.in');
       }
 
       this.filters.addFilter('equipoId.in', ...[this.equipoFilter.id.toString()]);
