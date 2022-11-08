@@ -70,9 +70,9 @@ public class SecurityConfiguration {
             .antMatchers("/api/account/reset-password/init").permitAll()
             .antMatchers("/api/account/reset-password/finish").permitAll()
             .antMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/api/equipos/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/api/participantes/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/api/voluntarios/**").hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/api/equipos/**").hasAnyAuthority(AuthoritiesConstants.ADMIN, AuthoritiesConstants.VOLUNTARIO)
+            .antMatchers("/api/participantes/**").hasAnyAuthority(AuthoritiesConstants.ADMIN, AuthoritiesConstants.VOLUNTARIO)
+            .antMatchers("/api/voluntarios/**").hasAnyAuthority(AuthoritiesConstants.ADMIN, AuthoritiesConstants.VOLUNTARIO)
             .antMatchers("/api/paso-controls/**").hasAnyAuthority(AuthoritiesConstants.ADMIN, AuthoritiesConstants.VOLUNTARIO) // TODO: Próximamente implementar al rol usuario también
             .antMatchers("/api/punto-controls/**").hasAnyAuthority(AuthoritiesConstants.ADMIN, AuthoritiesConstants.VOLUNTARIO)
             .antMatchers("/api/**").authenticated()
