@@ -5,14 +5,14 @@
         "title": "Equipos",
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear un nuevo equipo",
-        "createOrEditLabel": "Crear o editar Equipo",
-        "notFound": "Ningún Equipos encontrado"
+        "createOrEditLabel": "Crear o editar equipo",
+        "notFound": "Ningún equipo encontrado"
       },
       "created": "Un nuevo Equipo ha sido creado con el identificador {{ param }}",
       "updated": "Un Equipo ha sido actualizado con el identificador {{ param }}",
       "deleted": "Un Equipo ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Equipo {{ id }}?"
+        "question": "¿Seguro que quiere eliminar el equipo {{ id }}?"
       },
       "detail": {
         "title": "Equipo"
@@ -20,6 +20,7 @@
       "id": "ID",
       "identificador": "Identificador",
       "nombre": "Nombre",
+      "cantidadIntegrantes": "Cantidad Integrantes",
       "participantes": "Participantes"
     }
   }

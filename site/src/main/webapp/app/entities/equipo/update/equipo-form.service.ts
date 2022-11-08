@@ -20,6 +20,7 @@ type EquipoFormGroupContent = {
   id: FormControl<IEquipo['id'] | NewEquipo['id']>;
   identificador: FormControl<IEquipo['identificador']>;
   nombre: FormControl<IEquipo['nombre']>;
+  cantidadIntegrantes: FormControl<IEquipo['cantidadIntegrantes']>;
 };
 
 export type EquipoFormGroup = FormGroup<EquipoFormGroupContent>;
@@ -41,6 +42,9 @@ export class EquipoFormService {
       ),
       identificador: new FormControl(equipoRawValue.identificador),
       nombre: new FormControl(equipoRawValue.nombre),
+      cantidadIntegrantes: new FormControl(equipoRawValue.cantidadIntegrantes, {
+        validators: [Validators.required, Validators.min(1)],
+      }),
     });
   }
 

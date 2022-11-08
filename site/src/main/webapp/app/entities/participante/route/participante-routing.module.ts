@@ -13,7 +13,7 @@ const participanteRoute: Routes = [
     path: '',
     component: ParticipanteComponent,
     data: {
-      defaultSort: 'id,' + ASC,
+      defaultSort: 'apellidos,' + ASC,
     },
     canActivate: [UserRouteAccessService],
   },

@@ -96,6 +96,9 @@ public class EquipoQueryService extends QueryService<Equipo> {
             if (criteria.getNombre() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getNombre(), Equipo_.nombre));
             }
+            if (criteria.getCantidadIntegrantes() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getCantidadIntegrantes(), Equipo_.cantidadIntegrantes));
+            }
             if (criteria.getParticipantesId() != null) {
                 specification =
                     specification.and(

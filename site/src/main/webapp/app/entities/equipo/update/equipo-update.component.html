@@ -9,7 +9,7 @@
         <jhi-alert-error></jhi-alert-error>
 
         <div class="row">
-          <div class="col-12 col-md-4 mb-3">
+          <div class="col-12 col-md-3 mb-3">
             <label class="form-label" jhiTranslate="gymkanappApp.equipo.identificador" for="field_identificador">Identificador</label>
             <input
               type="text"
@@ -21,13 +21,57 @@
             />
           </div>
 
-          <div class="col-12 col-md-8 mb-3">
+          <div class="col-12 col-md-2 mb-3">
+            <label class="form-label" for="field_cantidadIntegrantes"
+              >Cantidad de integrantes</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              name="cantidadIntegrantes"
+              id="field_cantidadIntegrantes"
+              data-cy="cantidadIntegrantes"
+              formControlName="cantidadIntegrantes"
+            />
+            <div
+              *ngIf="
+                editForm.get('cantidadIntegrantes')!.invalid &&
+                (editForm.get('cantidadIntegrantes')!.dirty || editForm.get('cantidadIntegrantes')!.touched)
+              "
+            >
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('cantidadIntegrantes')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                Este campo es obligatorio.
+              </small>
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('cantidadIntegrantes')?.errors?.min"
+                jhiTranslate="entity.validation.min"
+                [translateValues]="{ min: 1 }"
+              >
+                Este campo debe ser mayor que 1.
+              </small>
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('cantidadIntegrantes')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+              >
+                Este campo debe ser un número.
+              </small>
+            </div>
+
+
+          </div>
+
+          <div class="col-12 col-md-7 mb-3">
             <label class="form-label" jhiTranslate="gymkanappApp.equipo.nombre" for="field_nombre">Nombre</label>
             <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
           </div>
         </div>
-
-        </div>
+      </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">

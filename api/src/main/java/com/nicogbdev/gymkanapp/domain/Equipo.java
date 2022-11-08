@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * A Equipo.
@@ -30,6 +31,11 @@ public class Equipo implements Serializable {
 
     @Column(name = "nombre")
     private String nombre;
+
+    @NotNull
+    @Min(value = 1)
+    @Column(name = "cantidad_integrantes", nullable = false)
+    private Integer cantidadIntegrantes;
 
     @OneToMany(mappedBy = "equipo")
     @JsonIgnoreProperties(value = { "usuarioApp", "equipo" }, allowSetters = true)
@@ -74,6 +80,19 @@ public class Equipo implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Integer getCantidadIntegrantes() {
+        return this.cantidadIntegrantes;
+    }
+
+    public Equipo cantidadIntegrantes(Integer cantidadIntegrantes) {
+        this.setCantidadIntegrantes(cantidadIntegrantes);
+        return this;
+    }
+
+    public void setCantidadIntegrantes(Integer cantidadIntegrantes) {
+        this.cantidadIntegrantes = cantidadIntegrantes;
     }
 
     public Set<Participante> getParticipantes() {
@@ -133,6 +152,7 @@ public class Equipo implements Serializable {
             "id=" + getId() +
             ", identificador='" + getIdentificador() + "'" +
             ", nombre='" + getNombre() + "'" +
+            ", cantidadIntegrantes=" + getCantidadIntegrantes() +
             "}";
     }
 }

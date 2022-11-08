@@ -6,14 +6,14 @@ import { PasoControlComponent } from '../list/paso-control.component';
 import { PasoControlDetailComponent } from '../detail/paso-control-detail.component';
 import { PasoControlUpdateComponent } from '../update/paso-control-update.component';
 import { PasoControlRoutingResolveService } from './paso-control-routing-resolve.service';
-import { ASC } from 'app/config/navigation.constants';
+import { ASC, DESC } from 'app/config/navigation.constants';
 
 const pasoControlRoute: Routes = [
   {
     path: '',
     component: PasoControlComponent,
     data: {
-      defaultSort: 'id,' + ASC,
+      defaultSort: 'fechaHora,' + DESC,
     },
     canActivate: [UserRouteAccessService],
   },
