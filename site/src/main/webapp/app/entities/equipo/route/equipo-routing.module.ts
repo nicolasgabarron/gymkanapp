@@ -6,14 +6,14 @@ import { EquipoComponent } from '../list/equipo.component';
 import { EquipoDetailComponent } from '../detail/equipo-detail.component';
 import { EquipoUpdateComponent } from '../update/equipo-update.component';
 import { EquipoRoutingResolveService } from './equipo-routing-resolve.service';
-import { ASC } from 'app/config/navigation.constants';
+import { ASC, DESC } from 'app/config/navigation.constants';
 
 const equipoRoute: Routes = [
   {
     path: '',
     component: EquipoComponent,
     data: {
-      defaultSort: 'identificador,' + ASC,
+      defaultSort: 'identificador,' + DESC,
     },
     canActivate: [UserRouteAccessService],
   },
