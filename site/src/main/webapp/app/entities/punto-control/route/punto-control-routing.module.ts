@@ -13,7 +13,7 @@ const puntoControlRoute: Routes = [
     path: '',
     component: PuntoControlComponent,
     data: {
-      defaultSort: 'id,' + ASC,
+      defaultSort: 'orden,' + ASC,
     },
     canActivate: [UserRouteAccessService],
   },

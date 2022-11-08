@@ -13,7 +13,7 @@ const equipoRoute: Routes = [
     path: '',
     component: EquipoComponent,
     data: {
-      defaultSort: 'id,' + ASC,
+      defaultSort: 'identificador,' + ASC,
     },
     canActivate: [UserRouteAccessService],
   },
