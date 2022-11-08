@@ -22,6 +22,7 @@ describe('Equipo Form Service', () => {
             id: expect.any(Object),
             identificador: expect.any(Object),
             nombre: expect.any(Object),
+            cantidadIntegrantes: expect.any(Object),
           })
         );
       });
@@ -34,6 +35,7 @@ describe('Equipo Form Service', () => {
             id: expect.any(Object),
             identificador: expect.any(Object),
             nombre: expect.any(Object),
+            cantidadIntegrantes: expect.any(Object),
           })
         );
       });

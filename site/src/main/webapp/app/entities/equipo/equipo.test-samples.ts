@@ -2,20 +2,24 @@ import { IEquipo, NewEquipo } from './equipo.model';
 
 export const sampleWithRequiredData: IEquipo = {
   id: 58929,
+  cantidadIntegrantes: 73739,
 };
 
 export const sampleWithPartialData: IEquipo = {
-  id: 57141,
-  identificador: 'Increible',
+  id: 15919,
+  nombre: 'función',
+  cantidadIntegrantes: 13393,
 };
 
 export const sampleWithFullData: IEquipo = {
-  id: 70695,
-  identificador: 'optical',
-  nombre: 'Dinánmico',
+  id: 79202,
+  identificador: 'complejidad Morado Universal',
+  nombre: 'Tunez sensor Senior',
+  cantidadIntegrantes: 90413,
 };
 
 export const sampleWithNewData: NewEquipo = {
+  cantidadIntegrantes: 31055,
   id: null,
 };
 

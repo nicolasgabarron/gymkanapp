@@ -30,6 +30,7 @@ export class EquipoComponent implements OnInit {
   identificadorFilter?: string;
   nombreFilter?: string;
 
+
   itemsPerPage = ITEMS_PER_PAGE;
   totalItems = 0;
   page = 1;
@@ -39,7 +40,7 @@ export class EquipoComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     public router: Router,
     protected modalService: NgbModal
-  ) { }
+  ) {}
 
   trackId = (_index: number, item: IEquipo): number => this.equipoService.getEquipoIdentifier(item);
 
@@ -114,6 +115,7 @@ export class EquipoComponent implements OnInit {
     this.identificadorFilter = '';
     this.nombreFilter = '';
   }
+
 
   protected loadFromBackendWithRouteInformations(): Observable<EntityArrayResponseType> {
     return combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data]).pipe(

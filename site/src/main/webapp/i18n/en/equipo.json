@@ -4,7 +4,7 @@
       "home": {
         "title": "Equipos",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Crear un nuevo equipo",
+        "createLabel": "Create a new Equipo",
         "createOrEditLabel": "Create or edit a Equipo",
         "notFound": "No Equipos found"
       },
@@ -20,6 +20,7 @@
       "id": "ID",
       "identificador": "Identificador",
       "nombre": "Nombre",
+      "cantidadIntegrantes": "Cantidad de integrantes",
       "participantes": "Participantes"
     }
   }
