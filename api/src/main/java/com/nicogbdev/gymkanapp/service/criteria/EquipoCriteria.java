@@ -27,6 +27,8 @@ public class EquipoCriteria implements Serializable, Criteria {
 
     private StringFilter nombre;
 
+    private IntegerFilter cantidadIntegrantes;
+
     private LongFilter participantesId;
 
     private Boolean distinct;
@@ -37,6 +39,7 @@ public class EquipoCriteria implements Serializable, Criteria {
         this.id = other.id == null ? null : other.id.copy();
         this.identificador = other.identificador == null ? null : other.identificador.copy();
         this.nombre = other.nombre == null ? null : other.nombre.copy();
+        this.cantidadIntegrantes = other.cantidadIntegrantes == null ? null : other.cantidadIntegrantes.copy();
         this.participantesId = other.participantesId == null ? null : other.participantesId.copy();
         this.distinct = other.distinct;
     }
@@ -91,6 +94,21 @@ public class EquipoCriteria implements Serializable, Criteria {
         this.nombre = nombre;
     }
 
+    public IntegerFilter getCantidadIntegrantes() {
+        return cantidadIntegrantes;
+    }
+
+    public IntegerFilter cantidadIntegrantes() {
+        if (cantidadIntegrantes == null) {
+            cantidadIntegrantes = new IntegerFilter();
+        }
+        return cantidadIntegrantes;
+    }
+
+    public void setCantidadIntegrantes(IntegerFilter cantidadIntegrantes) {
+        this.cantidadIntegrantes = cantidadIntegrantes;
+    }
+
     public LongFilter getParticipantesId() {
         return participantesId;
     }
@@ -127,6 +145,7 @@ public class EquipoCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(identificador, that.identificador) &&
             Objects.equals(nombre, that.nombre) &&
+            Objects.equals(cantidadIntegrantes, that.cantidadIntegrantes) &&
             Objects.equals(participantesId, that.participantesId) &&
             Objects.equals(distinct, that.distinct)
         );
@@ -134,7 +153,7 @@ public class EquipoCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, identificador, nombre, participantesId, distinct);
+        return Objects.hash(id, identificador, nombre, cantidadIntegrantes, participantesId, distinct);
     }
 
     // prettier-ignore
@@ -144,6 +163,7 @@ public class EquipoCriteria implements Serializable, Criteria {
             (id != null ? "id=" + id + ", " : "") +
             (identificador != null ? "identificador=" + identificador + ", " : "") +
             (nombre != null ? "nombre=" + nombre + ", " : "") +
+            (cantidadIntegrantes != null ? "cantidadIntegrantes=" + cantidadIntegrantes + ", " : "") +
             (participantesId != null ? "participantesId=" + participantesId + ", " : "") +
             (distinct != null ? "distinct=" + distinct + ", " : "") +
             "}";

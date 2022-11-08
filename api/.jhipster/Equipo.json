@@ -12,6 +12,12 @@
     {
       "fieldName": "nombre",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "cantidadIntegrantes",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "1"
     }
   ],
   "fluentMethods": true,
