@@ -93,6 +93,7 @@
           <td class="text-end">
             <div class="btn-group">
               <button
+                disabled
                 type="submit"
                 [routerLink]="['/participante']"
                 [queryParams]="{ 'filter[equipoId.in]': equipo.id }"
@@ -102,9 +103,7 @@
                 <fa-icon icon="eye"></fa-icon>
                 <span
                   class="d-none d-md-inline"
-                  jhiTranslate="entity.action.show"
-                  [translateValues]="{ otherEntity: ('gymkanappApp.equipo.participantes' | translate) }"
-                  >Show Participante</span
+                  >Ver participantes</span
                 >
               </button>
               <button type="submit" [routerLink]="['/equipo', equipo.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
