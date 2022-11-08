@@ -39,6 +39,10 @@ class EquipoResourceIT {
     private static final String DEFAULT_NOMBRE = "AAAAAAAAAA";
     private static final String UPDATED_NOMBRE = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_CANTIDAD_INTEGRANTES = 1;
+    private static final Integer UPDATED_CANTIDAD_INTEGRANTES = 2;
+    private static final Integer SMALLER_CANTIDAD_INTEGRANTES = 1 - 1;
+
     private static final String ENTITY_API_URL = "/api/equipos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -66,7 +70,10 @@ class EquipoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Equipo createEntity(EntityManager em) {
-        Equipo equipo = new Equipo().identificador(DEFAULT_IDENTIFICADOR).nombre(DEFAULT_NOMBRE);
+        Equipo equipo = new Equipo()
+            .identificador(DEFAULT_IDENTIFICADOR)
+            .nombre(DEFAULT_NOMBRE)
+            .cantidadIntegrantes(DEFAULT_CANTIDAD_INTEGRANTES);
         return equipo;
     }
 
@@ -77,7 +84,10 @@ class EquipoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Equipo createUpdatedEntity(EntityManager em) {
-        Equipo equipo = new Equipo().identificador(UPDATED_IDENTIFICADOR).nombre(UPDATED_NOMBRE);
+        Equipo equipo = new Equipo()
+            .identificador(UPDATED_IDENTIFICADOR)
+            .nombre(UPDATED_NOMBRE)
+            .cantidadIntegrantes(UPDATED_CANTIDAD_INTEGRANTES);
         return equipo;
     }
 
@@ -102,6 +112,7 @@ class EquipoResourceIT {
         Equipo testEquipo = equipoList.get(equipoList.size() - 1);
         assertThat(testEquipo.getIdentificador()).isEqualTo(DEFAULT_IDENTIFICADOR);
         assertThat(testEquipo.getNombre()).isEqualTo(DEFAULT_NOMBRE);
+        assertThat(testEquipo.getCantidadIntegrantes()).isEqualTo(DEFAULT_CANTIDAD_INTEGRANTES);
     }
 
     @Test
@@ -125,6 +136,24 @@ class EquipoResourceIT {
 
     @Test
     @Transactional
+    void checkCantidadIntegrantesIsRequired() throws Exception {
+        int databaseSizeBeforeTest = equipoRepository.findAll().size();
+        // set the field null
+        equipo.setCantidadIntegrantes(null);
+
+        // Create the Equipo, which fails.
+        EquipoDTO equipoDTO = equipoMapper.toDto(equipo);
+
+        restEquipoMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(equipoDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Equipo> equipoList = equipoRepository.findAll();
+        assertThat(equipoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllEquipos() throws Exception {
         // Initialize the database
         equipoRepository.saveAndFlush(equipo);
@@ -136,7 +165,8 @@ class EquipoResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(equipo.getId().intValue())))
             .andExpect(jsonPath("$.[*].identificador").value(hasItem(DEFAULT_IDENTIFICADOR)))
-            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)));
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
+            .andExpect(jsonPath("$.[*].cantidadIntegrantes").value(hasItem(DEFAULT_CANTIDAD_INTEGRANTES)));
     }
 
     @Test
@@ -152,7 +182,8 @@ class EquipoResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(equipo.getId().intValue()))
             .andExpect(jsonPath("$.identificador").value(DEFAULT_IDENTIFICADOR))
-            .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE));
+            .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE))
+            .andExpect(jsonPath("$.cantidadIntegrantes").value(DEFAULT_CANTIDAD_INTEGRANTES));
     }
 
     @Test
@@ -305,6 +336,97 @@ class EquipoResourceIT {
 
     @Test
     @Transactional
+    void getAllEquiposByCantidadIntegrantesIsEqualToSomething() throws Exception {
+        // Initialize the database
+        equipoRepository.saveAndFlush(equipo);
+
+        // Get all the equipoList where cantidadIntegrantes equals to DEFAULT_CANTIDAD_INTEGRANTES
+        defaultEquipoShouldBeFound("cantidadIntegrantes.equals=" + DEFAULT_CANTIDAD_INTEGRANTES);
+
+        // Get all the equipoList where cantidadIntegrantes equals to UPDATED_CANTIDAD_INTEGRANTES
+        defaultEquipoShouldNotBeFound("cantidadIntegrantes.equals=" + UPDATED_CANTIDAD_INTEGRANTES);
+    }
+
+    @Test
+    @Transactional
+    void getAllEquiposByCantidadIntegrantesIsInShouldWork() throws Exception {
+        // Initialize the database
+        equipoRepository.saveAndFlush(equipo);
+
+        // Get all the equipoList where cantidadIntegrantes in DEFAULT_CANTIDAD_INTEGRANTES or UPDATED_CANTIDAD_INTEGRANTES
+        defaultEquipoShouldBeFound("cantidadIntegrantes.in=" + DEFAULT_CANTIDAD_INTEGRANTES + "," + UPDATED_CANTIDAD_INTEGRANTES);
+
+        // Get all the equipoList where cantidadIntegrantes equals to UPDATED_CANTIDAD_INTEGRANTES
+        defaultEquipoShouldNotBeFound("cantidadIntegrantes.in=" + UPDATED_CANTIDAD_INTEGRANTES);
+    }
+
+    @Test
+    @Transactional
+    void getAllEquiposByCantidadIntegrantesIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        equipoRepository.saveAndFlush(equipo);
+
+        // Get all the equipoList where cantidadIntegrantes is not null
+        defaultEquipoShouldBeFound("cantidadIntegrantes.specified=true");
+
+        // Get all the equipoList where cantidadIntegrantes is null
+        defaultEquipoShouldNotBeFound("cantidadIntegrantes.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllEquiposByCantidadIntegrantesIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        equipoRepository.saveAndFlush(equipo);
+
+        // Get all the equipoList where cantidadIntegrantes is greater than or equal to DEFAULT_CANTIDAD_INTEGRANTES
+        defaultEquipoShouldBeFound("cantidadIntegrantes.greaterThanOrEqual=" + DEFAULT_CANTIDAD_INTEGRANTES);
+
+        // Get all the equipoList where cantidadIntegrantes is greater than or equal to UPDATED_CANTIDAD_INTEGRANTES
+        defaultEquipoShouldNotBeFound("cantidadIntegrantes.greaterThanOrEqual=" + UPDATED_CANTIDAD_INTEGRANTES);
+    }
+
+    @Test
+    @Transactional
+    void getAllEquiposByCantidadIntegrantesIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        equipoRepository.saveAndFlush(equipo);
+
+        // Get all the equipoList where cantidadIntegrantes is less than or equal to DEFAULT_CANTIDAD_INTEGRANTES
+        defaultEquipoShouldBeFound("cantidadIntegrantes.lessThanOrEqual=" + DEFAULT_CANTIDAD_INTEGRANTES);
+
+        // Get all the equipoList where cantidadIntegrantes is less than or equal to SMALLER_CANTIDAD_INTEGRANTES
+        defaultEquipoShouldNotBeFound("cantidadIntegrantes.lessThanOrEqual=" + SMALLER_CANTIDAD_INTEGRANTES);
+    }
+
+    @Test
+    @Transactional
+    void getAllEquiposByCantidadIntegrantesIsLessThanSomething() throws Exception {
+        // Initialize the database
+        equipoRepository.saveAndFlush(equipo);
+
+        // Get all the equipoList where cantidadIntegrantes is less than DEFAULT_CANTIDAD_INTEGRANTES
+        defaultEquipoShouldNotBeFound("cantidadIntegrantes.lessThan=" + DEFAULT_CANTIDAD_INTEGRANTES);
+
+        // Get all the equipoList where cantidadIntegrantes is less than UPDATED_CANTIDAD_INTEGRANTES
+        defaultEquipoShouldBeFound("cantidadIntegrantes.lessThan=" + UPDATED_CANTIDAD_INTEGRANTES);
+    }
+
+    @Test
+    @Transactional
+    void getAllEquiposByCantidadIntegrantesIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        equipoRepository.saveAndFlush(equipo);
+
+        // Get all the equipoList where cantidadIntegrantes is greater than DEFAULT_CANTIDAD_INTEGRANTES
+        defaultEquipoShouldNotBeFound("cantidadIntegrantes.greaterThan=" + DEFAULT_CANTIDAD_INTEGRANTES);
+
+        // Get all the equipoList where cantidadIntegrantes is greater than SMALLER_CANTIDAD_INTEGRANTES
+        defaultEquipoShouldBeFound("cantidadIntegrantes.greaterThan=" + SMALLER_CANTIDAD_INTEGRANTES);
+    }
+
+    @Test
+    @Transactional
     void getAllEquiposByParticipantesIsEqualToSomething() throws Exception {
         Participante participantes;
         if (TestUtil.findAll(em, Participante.class).isEmpty()) {
@@ -336,7 +458,8 @@ class EquipoResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(equipo.getId().intValue())))
             .andExpect(jsonPath("$.[*].identificador").value(hasItem(DEFAULT_IDENTIFICADOR)))
-            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)));
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
+            .andExpect(jsonPath("$.[*].cantidadIntegrantes").value(hasItem(DEFAULT_CANTIDAD_INTEGRANTES)));
 
         // Check, that the count call also returns 1
         restEquipoMockMvc
@@ -384,7 +507,7 @@ class EquipoResourceIT {
         Equipo updatedEquipo = equipoRepository.findById(equipo.getId()).get();
         // Disconnect from session so that the updates on updatedEquipo are not directly saved in db
         em.detach(updatedEquipo);
-        updatedEquipo.identificador(UPDATED_IDENTIFICADOR).nombre(UPDATED_NOMBRE);
+        updatedEquipo.identificador(UPDATED_IDENTIFICADOR).nombre(UPDATED_NOMBRE).cantidadIntegrantes(UPDATED_CANTIDAD_INTEGRANTES);
         EquipoDTO equipoDTO = equipoMapper.toDto(updatedEquipo);
 
         restEquipoMockMvc
@@ -401,6 +524,7 @@ class EquipoResourceIT {
         Equipo testEquipo = equipoList.get(equipoList.size() - 1);
         assertThat(testEquipo.getIdentificador()).isEqualTo(UPDATED_IDENTIFICADOR);
         assertThat(testEquipo.getNombre()).isEqualTo(UPDATED_NOMBRE);
+        assertThat(testEquipo.getCantidadIntegrantes()).isEqualTo(UPDATED_CANTIDAD_INTEGRANTES);
     }
 
     @Test
@@ -480,6 +604,8 @@ class EquipoResourceIT {
         Equipo partialUpdatedEquipo = new Equipo();
         partialUpdatedEquipo.setId(equipo.getId());
 
+        partialUpdatedEquipo.cantidadIntegrantes(UPDATED_CANTIDAD_INTEGRANTES);
+
         restEquipoMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedEquipo.getId())
@@ -494,6 +620,7 @@ class EquipoResourceIT {
         Equipo testEquipo = equipoList.get(equipoList.size() - 1);
         assertThat(testEquipo.getIdentificador()).isEqualTo(DEFAULT_IDENTIFICADOR);
         assertThat(testEquipo.getNombre()).isEqualTo(DEFAULT_NOMBRE);
+        assertThat(testEquipo.getCantidadIntegrantes()).isEqualTo(UPDATED_CANTIDAD_INTEGRANTES);
     }
 
     @Test
@@ -508,7 +635,7 @@ class EquipoResourceIT {
         Equipo partialUpdatedEquipo = new Equipo();
         partialUpdatedEquipo.setId(equipo.getId());
 
-        partialUpdatedEquipo.identificador(UPDATED_IDENTIFICADOR).nombre(UPDATED_NOMBRE);
+        partialUpdatedEquipo.identificador(UPDATED_IDENTIFICADOR).nombre(UPDATED_NOMBRE).cantidadIntegrantes(UPDATED_CANTIDAD_INTEGRANTES);
 
         restEquipoMockMvc
             .perform(
@@ -524,6 +651,7 @@ class EquipoResourceIT {
         Equipo testEquipo = equipoList.get(equipoList.size() - 1);
         assertThat(testEquipo.getIdentificador()).isEqualTo(UPDATED_IDENTIFICADOR);
         assertThat(testEquipo.getNombre()).isEqualTo(UPDATED_NOMBRE);
+        assertThat(testEquipo.getCantidadIntegrantes()).isEqualTo(UPDATED_CANTIDAD_INTEGRANTES);
     }
 
     @Test

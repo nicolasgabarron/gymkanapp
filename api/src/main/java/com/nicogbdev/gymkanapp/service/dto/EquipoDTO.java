@@ -2,6 +2,7 @@ package com.nicogbdev.gymkanapp.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.validation.constraints.*;
 
 /**
  * A DTO for the {@link com.nicogbdev.gymkanapp.domain.Equipo} entity.
@@ -14,6 +15,10 @@ public class EquipoDTO implements Serializable {
     private String identificador;
 
     private String nombre;
+
+    @NotNull
+    @Min(value = 1)
+    private Integer cantidadIntegrantes;
 
     public Long getId() {
         return id;
@@ -37,6 +42,14 @@ public class EquipoDTO implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Integer getCantidadIntegrantes() {
+        return cantidadIntegrantes;
+    }
+
+    public void setCantidadIntegrantes(Integer cantidadIntegrantes) {
+        this.cantidadIntegrantes = cantidadIntegrantes;
     }
 
     @Override
@@ -67,6 +80,7 @@ public class EquipoDTO implements Serializable {
             "id=" + getId() +
             ", identificador='" + getIdentificador() + "'" +
             ", nombre='" + getNombre() + "'" +
+            ", cantidadIntegrantes=" + getCantidadIntegrantes() +
             "}";
     }
 }

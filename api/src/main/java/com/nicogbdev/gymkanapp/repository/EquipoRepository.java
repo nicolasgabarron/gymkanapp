@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface EquipoRepository extends JpaRepository<Equipo, Long>, JpaSpecificationExecutor<Equipo> {
-
     @Override
     @EntityGraph("equipo-entity-graph")
     Page<Equipo> findAll(Specification<Equipo> spec, Pageable pageable);
