@@ -13,7 +13,7 @@ const voluntarioRoute: Routes = [
     path: '',
     component: VoluntarioComponent,
     data: {
-      defaultSort: 'id,' + ASC,
+      defaultSort: 'apellidos,' + ASC,
     },
     canActivate: [UserRouteAccessService],
   },
