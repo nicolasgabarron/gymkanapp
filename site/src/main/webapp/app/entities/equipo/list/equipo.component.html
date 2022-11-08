@@ -62,21 +62,9 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
-          <th scope="col" jhiSortBy="id">
-            <div class="d-flex">
-              <span jhiTranslate="global.field.id">ID</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="identificador">
             <div class="d-flex">
               <span jhiTranslate="gymkanappApp.equipo.identificador">Identificador</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
-          <th scope="col" jhiSortBy="nombre">
-            <div class="d-flex">
-              <span jhiTranslate="gymkanappApp.equipo.nombre">Nombre</span>
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
@@ -86,17 +74,22 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="nombre">
+            <div class="d-flex">
+              <span jhiTranslate="gymkanappApp.equipo.nombre">Nombre</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let equipo of equipos; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/equipo', equipo.id, 'view']">{{ equipo.id }}</a>
-          </td>
           <td>{{ equipo.identificador }}</td>
-          <td>{{ equipo.nombre }}</td>
           <td>{{ equipo.cantidadIntegrantes }}</td>
+          <td>{{ equipo.nombre }}</td>
+
           <td class="text-end">
             <div class="btn-group">
               <button
