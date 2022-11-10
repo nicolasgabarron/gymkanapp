@@ -79,7 +79,7 @@ export class PasoControlUpdateComponent implements OnInit {
 
     if(IdentificadorNombreEquipo){
       queryIdentificadorNombre["identificador.contains"] = IdentificadorNombreEquipo;
-      queryIdentificadorNombre["nombre.contains"] = IdentificadorNombreEquipo;
+      // queryIdentificadorNombre["nombre.contains"] = IdentificadorNombreEquipo;
     }
 
     this.equipoService.query(queryIdentificadorNombre)
