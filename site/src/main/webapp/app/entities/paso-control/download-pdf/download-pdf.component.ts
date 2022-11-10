@@ -106,7 +106,13 @@ export class DownloadPdfComponent implements OnInit {
         startY: this.equipoForm && this.puntoControlForm ? 30 : 25
       });
 
-      doc.save('exportacion.pdf');
+      if(this.equipoForm && this.puntoControlForm){
+        doc.save(`${this.equipoForm.identificador}_${this.puntoControlForm.nombre}`);
+      } else if (this.equipoForm){
+        doc.save(`${this.equipoForm.identificador}`);
+      } else if (this.puntoControlForm) {
+        doc.save(`${this.puntoControlForm.nombre}`);
+      }
 
     })
 
@@ -118,7 +124,7 @@ export class DownloadPdfComponent implements OnInit {
     };
 
     if(this.equipoForm){
-      queryPasoObject['equipoIden.in'] = this.equipoForm.id.toString();
+      queryPasoObject['equipoId.in'] = this.equipoForm.id.toString();
     }
 
     if(this.puntoControlForm) {
