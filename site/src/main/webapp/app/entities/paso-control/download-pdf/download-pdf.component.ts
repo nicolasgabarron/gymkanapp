@@ -44,7 +44,7 @@ export class DownloadPdfComponent implements OnInit {
 
     if(IdentificadorNombreEquipo){
       queryIdentificadorNombre["identificador.contains"] = IdentificadorNombreEquipo;
-      queryIdentificadorNombre["nombre.contains"] = IdentificadorNombreEquipo;
+      // queryIdentificadorNombre["nombre.contains"] = IdentificadorNombreEquipo;
     }
 
     this.equipoService.query(queryIdentificadorNombre)
@@ -118,7 +118,7 @@ export class DownloadPdfComponent implements OnInit {
     };
 
     if(this.equipoForm){
-      queryPasoObject['equipoId.in'] = this.equipoForm.id.toString();
+      queryPasoObject['equipoIden.in'] = this.equipoForm.id.toString();
     }
 
     if(this.puntoControlForm) {
