@@ -10,8 +10,12 @@
 
     <div class="col-12 col-md-6 form-group">
       <label>Equipo</label>
-      <p-autoComplete [(ngModel)]="equipoForm" [suggestions]="equiposSharedCollection"
-        (completeMethod)="searchEquipos($event)" [minLength]="2" [delay]="500" field="nombre" [dropdown]="true">
+      <p-autoComplete [(ngModel)]="equipoForm" [suggestions]="equiposSharedCollection" (completeMethod)="searchEquipos($event)" [dropdown]="true" field="nombre">
+        <ng-template let-equipo pTemplate="item">
+          <div class="ui-helper-clearfix">
+            {{equipo.identificador}}: {{equipo.nombre}}
+          </div>
+        </ng-template>
       </p-autoComplete>
     </div>
 
