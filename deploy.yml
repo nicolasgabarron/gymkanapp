@@ -1,0 +1,63 @@
+version: '3.1'
+
+services:
+  db-postgres-gymkanapp:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: soycomotu
+      POSTGRES_DB: gymkanapp
+      POSTGRES_PASSWORD: SoyComoTu020201
+    ports:
+      - 5432:5432
+    networks:
+      network_gymkanapp:
+        ipv4_address: 172.22.0.6
+    volumes:
+      - ./postgres_gymkanapp:/var/lib/postgresql/data
+
+  adminer-gymkanapp:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - 9090:8080
+    networks:
+      network_gymkanapp:
+        ipv4_address: 172.22.0.7
+
+  gymkanapp-api:
+    image: nicogabarron/gymkanapp-api:v1.0.7-arm
+    restart: unless-stopped
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,api-docs
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://172.22.0.6:5432/gymkanapp
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://172.22.0.6:5432/gymkanapp
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+    # If you want to expose these ports outside your dev PC,
+    # remove the "127.0.0.1:" prefix
+    ports:
+      - 8080:8080
+    depends_on:
+      - db-postgres-gymkanapp
+    networks:
+      network_gymkanapp:
+        ipv4_address: 172.22.0.8
+
+  gymkanapp-site:
+    image: nicogabarron/gymkanapp-site:v1.0.5
+    restart: unless-stopped
+    ports:
+      - 80:80
+    depends_on:
+      - db-postgres-gymkanapp
+      - gymkanapp-api
+    networks:
+      network_gymkanapp:
+        ipv4_address: 172.22.0.9
+networks:
+  network_gymkanapp:
+    ipam:
+      config:
+        - subnet: 172.22.0.0/24
