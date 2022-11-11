@@ -46,6 +46,7 @@ export class PasoControlUpdateComponent implements OnInit {
   compareVoluntario = (o1: IVoluntario | null, o2: IVoluntario | null): boolean => this.voluntarioService.compareVoluntario(o1, o2);
 
   ngOnInit(): void {
+    this.editForm.controls["fechaHora"].disable();
     this.activatedRoute.data.subscribe(({ pasoControl }) => {
       this.pasoControl = pasoControl;
       if (pasoControl) {
